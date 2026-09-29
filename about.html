@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | Stock Prediction AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#020b18;
+            color:#e6f7ff;
+            overflow-x:hidden;
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:75px;
+
+            display:flex;
+            align-items:center;
+
+            background:rgba(2,11,24,.94);
+            backdrop-filter:blur(18px);
+
+            border-bottom:1px solid rgba(0,217,255,.15);
+
+            z-index:1000;
+        }
+
+        .nav-inner{
+            width:90%;
+            max-width:1200px;
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            font-family:'Poppins',sans-serif;
+            font-size:21px;
+            font-weight:800;
+            color:#ffffff;
+        }
+
+        .logo-icon{
+            width:38px;
+            height:38px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:11px;
+
+            background:linear-gradient(
+                135deg,
+                #00d9ff,
+                #087cff
+            );
+
+            box-shadow:
+                0 10px 25px rgba(0,217,255,.25);
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            gap:30px;
+        }
+
+        .nav-links a{
+            font-size:14px;
+            font-weight:600;
+            color:#9db7c8;
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active{
+            color:#00d9ff;
+        }
+
+        .nav-btn{
+            padding:11px 20px;
+            border-radius:10px;
+
+            background:linear-gradient(
+                135deg,
+                #00d9ff,
+                #087cff
+            );
+
+            color:#ffffff;
+            font-size:13px;
+            font-weight:700;
+
+            box-shadow:
+                0 8px 20px rgba(0,217,255,.22);
+        }
+
+        /* ================= HERO ================= */
+
+        .page{
+            padding:140px 0 100px;
+        }
+
+        .hero-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:70px;
+            align-items:center;
+        }
+
+        .tag{
+            display:inline-block;
+
+            padding:8px 14px;
+
+            border-radius:50px;
+
+            color:#00d9ff;
+
+            background:rgba(0,217,255,.08);
+
+            border:1px solid rgba(0,217,255,.18);
+
+            font-size:11px;
+            font-weight:800;
+
+            letter-spacing:1.5px;
+        }
+
+        .hero-title{
+            margin-top:18px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:50px;
+            line-height:1.12;
+
+            color:#f5fbff;
+        }
+
+        .gradient{
+            background:linear-gradient(
+                90deg,
+                #00d9ff,
+                #087cff,
+                #00e6a8
+            );
+
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+        }
+
+        .hero-text{
+            margin-top:20px;
+
+            color:#9db7c8;
+
+            font-size:15px;
+            line-height:1.85;
+        }
+
+        .hero-points{
+            margin-top:25px;
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:12px;
+        }
+
+        .point{
+            padding:13px 15px;
+
+            border-radius:12px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            color:#cdefff;
+
+            font-size:12px;
+        }
+
+        .point span{
+            color:#00e6a8;
+            margin-right:7px;
+        }
+
+        /* ================= AI VISUAL ================= */
+
+        .visual-box{
+            position:relative;
+
+            min-height:430px;
+
+            border-radius:28px;
+
+            background:
+                radial-gradient(
+                    circle at 30% 20%,
+                    rgba(0,217,255,.14),
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at 80% 80%,
+                    rgba(0,124,255,.14),
+                    transparent 35%
+                ),
+                #061827;
+
+            border:1px solid #15364d;
+
+            box-shadow:
+                0 30px 80px rgba(0,0,0,.35);
+
+            overflow:hidden;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+        }
+
+        .visual-box::before{
+            content:"";
+
+            position:absolute;
+
+            width:230px;
+            height:230px;
+
+            border-radius:50%;
+
+            border:1px dashed rgba(0,217,255,.30);
+
+            animation:spin 14s linear infinite;
+        }
+
+        .visual-box::after{
+            content:"";
+
+            position:absolute;
+
+            width:320px;
+            height:320px;
+
+            border-radius:50%;
+
+            border:1px solid rgba(0,217,255,.08);
+        }
+
+        @keyframes spin{
+            from{
+                transform:rotate(0deg);
+            }
+            to{
+                transform:rotate(360deg);
+            }
+        }
+
+        .ai-core{
+            position:relative;
+            z-index:5;
+
+            width:145px;
+            height:145px;
+
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 0 60px rgba(0,217,255,.25);
+        }
+
+        .ai-core-icon{
+            font-size:42px;
+        }
+
+        .ai-core strong{
+            margin-top:5px;
+            color:#ffffff;
+            font-size:15px;
+        }
+
+        .data-node{
+            position:absolute;
+
+            padding:10px 14px;
+
+            border-radius:12px;
+
+            background:rgba(7,24,39,.95);
+
+            border:1px solid #20465e;
+
+            color:#bdeaff;
+
+            font-size:11px;
+            font-weight:700;
+
+            z-index:6;
+
+            box-shadow:0 12px 30px rgba(0,0,0,.3);
+        }
+
+        .node-1{
+            top:50px;
+            left:45px;
+        }
+
+        .node-2{
+            top:60px;
+            right:40px;
+        }
+
+        .node-3{
+            bottom:65px;
+            left:35px;
+        }
+
+        .node-4{
+            bottom:50px;
+            right:35px;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section{
+            padding:100px 0;
+        }
+
+        .section-heading{
+            text-align:center;
+            max-width:760px;
+            margin:0 auto 55px;
+        }
+
+        .section-heading span{
+            color:#00d9ff;
+            font-size:11px;
+            font-weight:800;
+            letter-spacing:2px;
+        }
+
+        .section-heading h2{
+            margin-top:12px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:38px;
+
+            color:#f5fbff;
+        }
+
+        .section-heading p{
+            margin-top:14px;
+
+            color:#9db7c8;
+
+            font-size:14px;
+            line-height:1.8;
+        }
+
+        /* ================= INFO CARDS ================= */
+
+        .info-grid{
+            display:grid;
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:22px;
+        }
+
+        .info-card{
+            padding:30px;
+
+            border-radius:20px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.35s;
+        }
+
+        .info-card:hover{
+            transform:translateY(-7px);
+
+            border-color:
+                rgba(0,217,255,.45);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,.30);
+        }
+
+        .icon{
+            width:58px;
+            height:58px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:15px;
+
+            background:
+                rgba(0,217,255,.09);
+
+            border:1px solid
+                rgba(0,217,255,.13);
+
+            color:#00d9ff;
+
+            font-size:25px;
+        }
+
+        .info-card h3{
+            margin-top:20px;
+
+            color:#f5fbff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:18px;
+        }
+
+        .info-card p{
+            margin-top:11px;
+
+            color:#9db7c8;
+
+            font-size:13px;
+
+            line-height:1.75;
+        }
+
+        /* ================= TECHNOLOGY ================= */
+
+        .tech-section{
+            background:
+                radial-gradient(
+                    circle at 15% 25%,
+                    rgba(0,217,255,.12),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 85% 75%,
+                    rgba(8,124,255,.12),
+                    transparent 28%
+                ),
+                #020b18;
+        }
+
+        .tech-grid{
+            display:grid;
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:18px;
+        }
+
+        .tech-card{
+            padding:25px 20px;
+
+            text-align:center;
+
+            background:rgba(6,24,39,.82);
+
+            border:1px solid #15364d;
+
+            border-radius:18px;
+
+            transition:.3s;
+        }
+
+        .tech-card:hover{
+            transform:translateY(-6px);
+
+            border-color:
+                rgba(0,217,255,.38);
+        }
+
+        .tech-logo{
+            width:70px;
+            height:70px;
+
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0,217,255,.14),
+                    rgba(8,124,255,.10)
+                );
+
+            border:1px solid
+                rgba(0,217,255,.14);
+
+            font-size:30px;
+        }
+
+        .tech-card h3{
+            margin-top:17px;
+
+            color:#f5fbff;
+
+            font-size:16px;
+        }
+
+        .tech-card p{
+            margin-top:8px;
+
+            color:#8faabc;
+
+            font-size:11px;
+
+            line-height:1.6;
+        }
+
+        /* ================= DATA FEATURES ================= */
+
+        .data-grid{
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:20px;
+        }
+
+        .data-card{
+            padding:25px;
+
+            border-radius:18px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #061827,
+                    #082238
+                );
+
+            border:1px solid #15364d;
+        }
+
+        .data-top{
+            display:flex;
+            align-items:center;
+            gap:14px;
+        }
+
+        .data-icon{
+            width:48px;
+            height:48px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:13px;
+
+            background:rgba(0,217,255,.09);
+
+            color:#00d9ff;
+
+            font-size:21px;
+        }
+
+        .data-top h3{
+            color:#ffffff;
+            font-size:16px;
+        }
+
+        .data-card p{
+            margin-top:14px;
+
+            color:#9db7c8;
+
+            font-size:13px;
+
+            line-height:1.7;
+        }
+
+        .tags{
+            display:flex;
+
+            flex-wrap:wrap;
+
+            gap:8px;
+
+            margin-top:16px;
+        }
+
+        .tag-small{
+            padding:6px 10px;
+
+            border-radius:8px;
+
+            background:#071827;
+
+            border:1px solid #17364d;
+
+            color:#b7d8e8;
+
+            font-size:10px;
+        }
+
+        /* ================= OBJECTIVES ================= */
+
+        .objective-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap:20px;
+        }
+
+        .objective{
+            padding:25px;
+
+            display:flex;
+
+            gap:18px;
+
+            border-radius:17px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .objective-number{
+            min-width:45px;
+            height:45px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            color:#ffffff;
+
+            font-weight:800;
+        }
+
+        .objective h3{
+            color:#ffffff;
+            font-size:16px;
+        }
+
+        .objective p{
+            margin-top:7px;
+
+            color:#8faabc;
+
+            font-size:12px;
+
+            line-height:1.7;
+        }
+
+        /* ================= DISCLAIMER ================= */
+
+        .notice{
+            margin-top:55px;
+
+            padding:25px;
+
+            border-radius:18px;
+
+            background:
+                rgba(255,193,7,.05);
+
+            border:
+                1px solid rgba(255,193,7,.20);
+        }
+
+        .notice h3{
+            color:#ffd766;
+
+            font-size:16px;
+        }
+
+        .notice p{
+            margin-top:8px;
+
+            color:#a8b8c1;
+
+            font-size:12px;
+
+            line-height:1.7;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            padding:30px 0;
+
+            text-align:center;
+
+            background:#010812;
+
+            color:#617d90;
+
+            font-size:12px;
+        }
+
+        footer strong{
+            color:#eaf9ff;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:950px){
+
+            .hero-grid{
+                grid-template-columns:1fr;
+            }
+
+            .info-grid{
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+            .hero-title{
+                font-size:43px;
+            }
+
+        }
+
+        @media(max-width:650px){
+
+            .nav-links{
+                display:none;
+            }
+
+            .page{
+                padding-top:120px;
+            }
+
+            .hero-title{
+                font-size:35px;
+            }
+
+            .hero-points{
+                grid-template-columns:1fr;
+            }
+
+            .info-grid,
+            .tech-grid,
+            .data-grid,
+            .objective-grid{
+                grid-template-columns:1fr;
+            }
+
+            .visual-box{
+                min-height:350px;
+            }
+
+            .node-1{
+                left:15px;
+            }
+
+            .node-2{
+                right:15px;
+            }
+
+            .node-3{
+                left:15px;
+            }
+
+            .node-4{
+                right:15px;
+            }
+
+        }
+
+    
+
+/* ================= MOBILE NAVIGATION ================= */
+
+.nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(0,217,255,.30);
+    border-radius:10px;
+    background:rgba(7,27,43,.88);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .nav-toggle{
+        display:flex;
+            flex-shrink:0;
+    }
+
+    .nav-links{
+        display:none !important;
+        position:absolute;
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+        z-index:1000;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:8px;
+        background:rgba(3,17,29,.98);
+        border:1px solid rgba(0,217,255,.18);
+        border-radius:14px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
+        backdrop-filter:blur(16px);
+    }
+
+    .nav-links.open{
+        display:flex !important;
+    }
+
+    .nav-links a{
+        display:block;
+        width:100%;
+        padding:12px 14px;
+        border-radius:9px;
+    }
+
+    .nav-links a:hover{
+        background:rgba(0,217,255,.08);
+    }
+
+    .nav-links a::after{
+        display:none !important;
+    }
+
+    .nav-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                📈
+            </div>
+
+            StockAI
+
+        </a>
+
+
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+
+        <div class="nav-links">
+
+           <a href="index.html">
+    Home
+</a>
+
+            <a href="about.html" class="active">
+                About
+            </a>
+
+            <a href="features.html">
+                Features
+            </a>
+
+            <a href="models.html">
+                Models
+            </a>
+
+            <a href="workflow.html">
+                Workflow
+            </a>
+
+        </div>
+
+
+        <a href="index.html#project" class="nav-btn">
+            Try Prediction
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= PAGE HERO ================= -->
+
+<main class="page">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <div>
+
+                <span class="tag">
+                    ABOUT STOCKAI
+                </span>
+
+
+                <h1 class="hero-title">
+
+                    Understanding
+                    <span class="gradient">
+                        Stock Prediction AI
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-text">
+
+                    Stock Prediction AI is a Machine Learning
+                    based web application designed to analyze
+                    historical stock market data and estimate
+                    future stock prices.
+
+                    The project combines Python, Flask,
+                    Yahoo Finance data and Random Forest
+                    Regression into one intelligent system.
+
+                </p>
+
+
+                <div class="hero-points">
+
+                    <div class="point">
+                        <span>✓</span>
+                        Historical Data Analysis
+                    </div>
+
+                    <div class="point">
+                        <span>✓</span>
+                        Machine Learning Prediction
+                    </div>
+
+                    <div class="point">
+                        <span>✓</span>
+                        Real-Time Market Data
+                    </div>
+
+                    <div class="point">
+                        <span>✓</span>
+                        BUY / SELL / HOLD Signal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- AI VISUAL -->
+
+            <div class="visual-box">
+
+                <div class="data-node node-1">
+                    📊 Market Data
+                </div>
+
+                <div class="data-node node-2">
+                    🧠 ML Model
+                </div>
+
+                <div class="data-node node-3">
+                    ⚙️ Features
+                </div>
+
+                <div class="data-node node-4">
+                    📈 Prediction
+                </div>
+
+
+                <div class="ai-core">
+
+                    <div class="ai-core-icon">
+                        🤖
+                    </div>
+
+                    <strong>
+                        STOCK AI
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<!-- ================= PROJECT OVERVIEW ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                PROJECT OVERVIEW
+            </span>
+
+            <h2>
+                What This Project Does
+            </h2>
+
+            <p>
+                The system processes historical market information,
+                creates useful machine learning features and uses a
+                trained model to estimate the next stock price.
+            </p>
+
+        </div>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    📥
+                </div>
+
+                <h3>
+                    Data Collection
+                </h3>
+
+                <p>
+                    The application collects historical stock
+                    information including Open, High, Low,
+                    Close and Volume values from market data.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    ⚙️
+                </div>
+
+                <h3>
+                    Feature Engineering
+                </h3>
+
+                <p>
+                    Additional features such as Previous Close,
+                    Daily Return, MA-5, MA-10 and Price Range
+                    are calculated from the market data.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🌲
+                </div>
+
+                <h3>
+                    Machine Learning
+                </h3>
+
+                <p>
+                    A Random Forest Regression model learns
+                    relationships between historical features
+                    and the next stock closing price.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🔌
+                </div>
+
+                <h3>
+                    Flask Backend
+                </h3>
+
+                <p>
+                    Flask loads the trained stock_model.pkl file
+                    and provides prediction results through
+                    the /api/predict endpoint.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Web Interface
+                </h3>
+
+                <p>
+                    The frontend allows a user to enter a stock
+                    symbol and view current market information
+                    together with the model prediction.
+                </p>
+
+            </div>
+
+
+            <div class="info-card">
+
+                <div class="icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Signal Generation
+                </h3>
+
+                <p>
+                    The system compares predicted and current
+                    prices and generates a BUY, SELL or HOLD
+                    signal based on the percentage difference.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section class="section tech-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                TECHNOLOGY STACK
+            </span>
+
+            <h2>
+                Technologies Used
+            </h2>
+
+            <p>
+                The project uses multiple technologies to connect
+                data collection, machine learning and the web
+                application.
+            </p>
+
+        </div>
+
+
+        <div class="tech-grid">
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🐍
+                </div>
+
+                <h3>
+                    Python
+                </h3>
+
+                <p>
+                    Used for data processing,
+                    machine learning and backend logic.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🔥
+                </div>
+
+                <h3>
+                    Flask
+                </h3>
+
+                <p>
+                    Used to create the backend API
+                    and connect the ML model.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🌲
+                </div>
+
+                <h3>
+                    Random Forest
+                </h3>
+
+                <p>
+                    Main regression algorithm used
+                    for stock price prediction.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    📊
+                </div>
+
+                <h3>
+                    Yahoo Finance
+                </h3>
+
+                <p>
+                    Provides historical and current
+                    stock market information.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🧮
+                </div>
+
+                <h3>
+                    Pandas
+                </h3>
+
+                <p>
+                    Used for data cleaning,
+                    transformation and analysis.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    ⚡
+                </div>
+
+                <h3>
+                    NumPy
+                </h3>
+
+                <p>
+                    Useful for numerical operations
+                    and data processing.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🌐
+                </div>
+
+                <h3>
+                    HTML & CSS
+                </h3>
+
+                <p>
+                    Used to build the modern responsive
+                    frontend interface.
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🔗
+                </div>
+
+                <h3>
+                    REST API
+                </h3>
+
+                <p>
+                    Connects the frontend with the
+                    machine learning backend.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DATA FEATURES ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                MACHINE LEARNING DATA
+            </span>
+
+            <h2>
+                Prediction Features
+            </h2>
+
+            <p>
+                The trained model uses different market variables
+                to understand price movement and estimate the next
+                closing price.
+            </p>
+
+        </div>
+
+
+        <div class="data-grid">
+
+
+            <div class="data-card">
+
+                <div class="data-top">
+
+                    <div class="data-icon">
+                        💰
+                    </div>
+
+                    <h3>
+                        Market Price Features
+                    </h3>
+
+                </div>
+
+                <p>
+                    These features describe the daily market
+                    movement of the selected stock.
+                </p>
+
+                <div class="tags">
+
+                    <span class="tag-small">
+                        Open
+                    </span>
+
+                    <span class="tag-small">
+                        High
+                    </span>
+
+                    <span class="tag-small">
+                        Low
+                    </span>
+
+                    <span class="tag-small">
+                        Close
+                    </span>
+
+                    <span class="tag-small">
+                        Volume
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="data-card">
+
+                <div class="data-top">
+
+                    <div class="data-icon">
+                        📈
+                    </div>
+
+                    <h3>
+                        Calculated Features
+                    </h3>
+
+                </div>
+
+                <p>
+                    Derived features help the model understand
+                    recent trends and price relationships.
+                </p>
+
+                <div class="tags">
+
+                    <span class="tag-small">
+                        Previous Close
+                    </span>
+
+                    <span class="tag-small">
+                        Daily Return
+                    </span>
+
+                    <span class="tag-small">
+                        MA-5
+                    </span>
+
+                    <span class="tag-small">
+                        MA-10
+                    </span>
+
+                    <span class="tag-small">
+                        Price Range
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= OBJECTIVES ================= -->
+
+<section class="section tech-section">
+
+    <div class="container">
+
+        <div class="section-heading">
+
+            <span>
+                PROJECT OBJECTIVES
+            </span>
+
+            <h2>
+                Main Objectives
+            </h2>
+
+            <p>
+                The project is designed as an educational
+                Artificial Intelligence and Machine Learning
+                application for stock market analysis.
+            </p>
+
+        </div>
+
+
+        <div class="objective-grid">
+
+
+            <div class="objective">
+
+                <div class="objective-number">
+                    01
+                </div>
+
+                <div>
+
+                    <h3>
+                        Analyze Historical Data
+                    </h3>
+
+                    <p>
+                        Study historical stock prices and market
+                        features to discover useful patterns.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="objective">
+
+                <div class="objective-number">
+                    02
+                </div>
+
+                <div>
+
+                    <h3>
+                        Apply Machine Learning
+                    </h3>
+
+                    <p>
+                        Train a Random Forest Regression model
+                        using historical stock market features.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="objective">
+
+                <div class="objective-number">
+                    03
+                </div>
+
+                <div>
+
+                    <h3>
+                        Predict Future Price
+                    </h3>
+
+                    <p>
+                        Use the trained model to estimate the
+                        next stock closing price.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="objective">
+
+                <div class="objective-number">
+                    04
+                </div>
+
+                <div>
+
+                    <h3>
+                        Provide Simple Results
+                    </h3>
+
+                    <p>
+                        Display price, change, prediction and
+                        BUY / SELL / HOLD signal in a simple UI.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="notice">
+
+            <h3>
+                ⚠️ Important Note
+            </h3>
+
+            <p>
+                Stock market prediction is uncertain. This project
+                is developed for educational and demonstration
+                purposes and should not be treated as financial
+                advice or a guaranteed prediction of future market
+                prices.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        <p>
+            © 2026 Stock Prediction AI |
+            Developed with ❤️ using
+            <strong>
+                Python, Flask & Machine Learning
+            </strong>
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+<script>
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if(navToggle && navLinks){
+
+    navToggle.addEventListener("click", function(){
+
+        const isOpen = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+        navToggle.innerHTML = isOpen ? "✕" : "☰";
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link){
+
+        link.addEventListener("click", function(){
+
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.innerHTML = "☰";
+
+        });
+
+    });
+}
+
+</script>
+
+</body>
+</html>

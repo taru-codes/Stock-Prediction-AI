@@ -1,0 +1,3256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Workflow | Stock Prediction AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#020b18;
+            color:#e6f7ff;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            width:480px;
+            height:480px;
+            top:-210px;
+            left:-180px;
+            border-radius:50%;
+            background:#00d9ff;
+            opacity:.055;
+            filter:blur(125px);
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        body::after{
+            content:"";
+            position:fixed;
+            width:480px;
+            height:480px;
+            right:-200px;
+            bottom:-220px;
+            border-radius:50%;
+            background:#087cff;
+            opacity:.07;
+            filter:blur(125px);
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .container{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:75px;
+
+            display:flex;
+            align-items:center;
+
+            background:rgba(2,11,24,.96);
+            backdrop-filter:blur(18px);
+
+            border-bottom:1px solid rgba(0,217,255,.14);
+
+            z-index:1000;
+        }
+
+        .nav-inner{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            font-family:'Poppins',sans-serif;
+            font-size:21px;
+            font-weight:800;
+
+            color:#ffffff;
+        }
+
+        .logo-icon{
+            width:39px;
+            height:39px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 10px 25px rgba(0,217,255,.22);
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            gap:30px;
+        }
+
+        .nav-links a{
+            position:relative;
+
+            color:#96afbf;
+
+            font-size:14px;
+            font-weight:600;
+
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active::after{
+            content:"";
+
+            position:absolute;
+            left:0;
+            bottom:-9px;
+
+            width:100%;
+            height:2px;
+
+            background:#00d9ff;
+            border-radius:20px;
+        }
+
+        .nav-btn{
+            padding:11px 20px;
+
+            border-radius:10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            color:#ffffff;
+
+            font-size:13px;
+            font-weight:700;
+
+            box-shadow:
+                0 8px 22px rgba(0,217,255,.20);
+        }
+
+        /* ================= HERO ================= */
+
+        .hero{
+            padding:150px 0 85px;
+        }
+
+        .hero-grid{
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:65px;
+
+            align-items:center;
+        }
+
+        .badge{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+
+            padding:9px 15px;
+
+            border-radius:50px;
+
+            color:#00d9ff;
+
+            background:rgba(0,217,255,.07);
+
+            border:1px solid rgba(0,217,255,.18);
+
+            font-size:11px;
+            font-weight:800;
+
+            letter-spacing:1.6px;
+        }
+
+        .badge-dot{
+            width:7px;
+            height:7px;
+
+            background:#00e6a8;
+
+            border-radius:50%;
+
+            box-shadow:
+                0 0 0 5px rgba(0,230,168,.08);
+        }
+
+        .hero h1{
+            margin-top:20px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:53px;
+            line-height:1.1;
+
+            letter-spacing:-1.5px;
+
+            color:#f5fbff;
+        }
+
+        .gradient-text{
+            background:
+                linear-gradient(
+                    90deg,
+                    #00d9ff,
+                    #087cff,
+                    #00e6a8
+                );
+
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+
+        .hero p{
+            margin-top:22px;
+
+            color:#9db7c8;
+
+            font-size:15px;
+            line-height:1.9;
+        }
+
+        .hero-list{
+            margin-top:25px;
+
+            display:grid;
+            grid-template-columns:1fr 1fr;
+
+            gap:12px;
+        }
+
+        .hero-list-item{
+            padding:13px 15px;
+
+            border-radius:12px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            color:#c2e4ef;
+
+            font-size:11px;
+        }
+
+        .hero-list-item span{
+            color:#00e6a8;
+            margin-right:7px;
+        }
+
+        /* ================= HERO VISUAL ================= */
+
+        .pipeline-visual{
+            position:relative;
+
+            min-height:470px;
+
+            border-radius:28px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 40%,
+                    rgba(0,217,255,.12),
+                    transparent 27%
+                ),
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(8,124,255,.10),
+                    transparent 30%
+                ),
+                #061827;
+
+            border:1px solid #15364d;
+
+            overflow:hidden;
+
+            box-shadow:
+                0 35px 80px rgba(0,0,0,.35);
+        }
+
+        .visual-grid{
+            position:absolute;
+            inset:0;
+
+            background:
+                linear-gradient(
+                    rgba(0,217,255,.045) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0,217,255,.045) 1px,
+                    transparent 1px
+                );
+
+            background-size:38px 38px;
+        }
+
+        .pipeline-line{
+            position:absolute;
+
+            width:72%;
+            height:3px;
+
+            left:14%;
+            top:50%;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00d9ff,
+                    #087cff,
+                    #00e6a8
+                );
+
+            box-shadow:
+                0 0 15px rgba(0,217,255,.25);
+
+            border-radius:10px;
+        }
+
+        .visual-node{
+            position:absolute;
+
+            width:86px;
+            height:86px;
+
+            display:flex;
+            flex-direction:column;
+
+            justify-content:center;
+            align-items:center;
+
+            border-radius:20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #071b2b,
+                    #08243a
+                );
+
+            border:1px solid #214b62;
+
+            box-shadow:
+                0 18px 35px rgba(0,0,0,.28);
+
+            z-index:5;
+        }
+
+        .visual-node-icon{
+            font-size:27px;
+        }
+
+        .visual-node small{
+            margin-top:6px;
+
+            color:#c4e9f4;
+
+            font-size:8px;
+            font-weight:700;
+
+            text-align:center;
+        }
+
+        .vn1{
+            left:30px;
+            top:78px;
+        }
+
+        .vn2{
+            left:31%;
+            top:58px;
+        }
+
+        .vn3{
+            right:31%;
+            top:58px;
+        }
+
+        .vn4{
+            right:30px;
+            top:78px;
+        }
+
+        .vn5{
+            left:31%;
+            bottom:55px;
+        }
+
+        .vn6{
+            right:31%;
+            bottom:55px;
+        }
+
+        .pipeline-label{
+            position:absolute;
+
+            top:20px;
+            left:50%;
+
+            transform:translateX(-50%);
+
+            color:#00d9ff;
+
+            font-size:10px;
+            font-weight:800;
+
+            letter-spacing:2px;
+        }
+
+        .live-label{
+            position:absolute;
+
+            bottom:22px;
+            left:50%;
+
+            transform:translateX(-50%);
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            white-space:nowrap;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section{
+            padding:100px 0;
+        }
+
+        .dark-section{
+            background:
+                radial-gradient(
+                    circle at 10% 15%,
+                    rgba(0,217,255,.07),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 85%,
+                    rgba(8,124,255,.08),
+                    transparent 30%
+                ),
+                #020b18;
+        }
+
+        .section-heading{
+            text-align:center;
+
+            max-width:800px;
+
+            margin:
+                0 auto
+                55px;
+        }
+
+        .section-heading span{
+            color:#00d9ff;
+
+            font-size:11px;
+
+            font-weight:800;
+
+            letter-spacing:2px;
+        }
+
+        .section-heading h2{
+            margin-top:12px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:39px;
+
+            color:#f5fbff;
+        }
+
+        .section-heading p{
+            margin-top:14px;
+
+            color:#9db7c8;
+
+            font-size:14px;
+
+            line-height:1.8;
+        }
+
+        /* ================= WORKFLOW STEPS ================= */
+
+        .workflow-list{
+            position:relative;
+
+            max-width:1000px;
+
+            margin:auto;
+        }
+
+        .workflow-list::before{
+            content:"";
+
+            position:absolute;
+
+            top:0;
+            bottom:0;
+
+            left:50%;
+
+            width:2px;
+
+            transform:translateX(-50%);
+
+            background:
+                linear-gradient(
+                    180deg,
+                    transparent,
+                    #00d9ff,
+                    #087cff,
+                    #00e6a8,
+                    transparent
+                );
+
+            opacity:.55;
+        }
+
+        .workflow-item{
+            position:relative;
+
+            width:50%;
+
+            padding:0 35px 50px;
+        }
+
+        .workflow-item.left{
+            left:0;
+
+            text-align:right;
+        }
+
+        .workflow-item.right{
+            margin-left:50%;
+        }
+
+        .workflow-dot{
+            position:absolute;
+
+            top:6px;
+
+            width:25px;
+            height:25px;
+
+            border-radius:50%;
+
+            display:flex;
+
+            align-items:center;
+            justify-content:center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            border:5px solid #020b18;
+
+            color:#ffffff;
+
+            font-size:9px;
+
+            font-weight:800;
+
+            z-index:5;
+
+            box-shadow:
+                0 0 0 1px rgba(0,217,255,.25);
+        }
+
+        .workflow-item.left .workflow-dot{
+            right:-13px;
+        }
+
+        .workflow-item.right .workflow-dot{
+            left:-12px;
+        }
+
+        .workflow-card{
+            padding:27px;
+
+            border-radius:20px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+
+            text-align:left;
+        }
+
+        .workflow-item.left .workflow-card{
+            text-align:right;
+        }
+
+        .workflow-card:hover{
+            transform:translateY(-6px);
+
+            border-color:
+                rgba(0,217,255,.42);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,.30);
+        }
+
+        .workflow-card-top{
+            display:flex;
+
+            align-items:center;
+
+            gap:13px;
+        }
+
+        .workflow-item.left .workflow-card-top{
+            justify-content:flex-end;
+        }
+
+        .step-icon{
+            min-width:54px;
+            height:54px;
+
+            display:flex;
+
+            align-items:center;
+            justify-content:center;
+
+            border-radius:15px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            border:1px solid
+                rgba(0,217,255,.13);
+
+            font-size:23px;
+        }
+
+        .step-label{
+            color:#00d9ff;
+
+            font-size:9px;
+
+            font-weight:800;
+
+            letter-spacing:1.5px;
+        }
+
+        .workflow-card h3{
+            margin-top:5px;
+
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:19px;
+        }
+
+        .workflow-card > p{
+            margin-top:13px;
+
+            color:#9db7c8;
+
+            font-size:12.5px;
+
+            line-height:1.8;
+        }
+
+        .step-points{
+            margin-top:16px;
+
+            display:flex;
+
+            flex-wrap:wrap;
+
+            gap:7px;
+        }
+
+        .step-point{
+            padding:6px 9px;
+
+            border-radius:7px;
+
+            background:#071827;
+
+            border:1px solid #17364d;
+
+            color:#a8d0dd;
+
+            font-size:9px;
+        }
+
+        /* ================= DATA FLOW ================= */
+
+        .data-flow{
+            display:grid;
+
+            grid-template-columns:
+                repeat(5,1fr);
+
+            gap:13px;
+
+            align-items:stretch;
+        }
+
+        .flow-card{
+            position:relative;
+
+            padding:24px 15px;
+
+            text-align:center;
+
+            border-radius:18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #071a2a,
+                    #082338
+                );
+
+            border:1px solid #173c55;
+        }
+
+        .flow-card:not(:last-child)::after{
+            content:"→";
+
+            position:absolute;
+
+            right:-19px;
+
+            top:50%;
+
+            transform:translateY(-50%);
+
+            color:#00d9ff;
+
+            font-size:19px;
+
+            z-index:6;
+        }
+
+        .flow-icon{
+            font-size:28px;
+        }
+
+        .flow-card h4{
+            margin-top:10px;
+
+            color:#ffffff;
+
+            font-size:12px;
+        }
+
+        .flow-card p{
+            margin-top:7px;
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            line-height:1.5;
+        }
+
+        /* ================= FEATURE MATRIX ================= */
+
+        .matrix{
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:20px;
+        }
+
+        .matrix-card{
+            padding:27px;
+
+            border-radius:19px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .matrix-card:hover{
+            transform:translateY(-6px);
+
+            border-color:
+                rgba(0,217,255,.36);
+        }
+
+        .matrix-icon{
+            width:55px;
+            height:55px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:15px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            font-size:24px;
+        }
+
+        .matrix-card h3{
+            margin-top:17px;
+
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:17px;
+        }
+
+        .matrix-card p{
+            margin-top:9px;
+
+            color:#9db7c8;
+
+            font-size:12px;
+
+            line-height:1.75;
+        }
+
+        /* ================= API DIAGRAM ================= */
+
+        .api-section{
+            display:grid;
+
+            grid-template-columns:
+                .9fr 1.1fr;
+
+            gap:25px;
+
+            align-items:stretch;
+        }
+
+        .api-info{
+            padding:31px;
+
+            border-radius:22px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .api-info h3{
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:21px;
+        }
+
+        .api-info > p{
+            margin-top:12px;
+
+            color:#9db7c8;
+
+            font-size:12.5px;
+
+            line-height:1.8;
+        }
+
+        .api-points{
+            margin-top:20px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:11px;
+        }
+
+        .api-point{
+            display:flex;
+
+            gap:10px;
+
+            color:#b7dbe8;
+
+            font-size:11px;
+        }
+
+        .api-point span{
+            color:#00e6a8;
+        }
+
+        .api-code{
+            padding:30px;
+
+            border-radius:22px;
+
+            background:#010914;
+
+            border:1px solid #15364d;
+
+            box-shadow:
+                inset 0 0 40px rgba(0,217,255,.025);
+        }
+
+        .code-top{
+            display:flex;
+
+            gap:7px;
+
+            margin-bottom:20px;
+        }
+
+        .code-dot{
+            width:8px;
+            height:8px;
+
+            border-radius:50%;
+
+            background:#254658;
+        }
+
+        .code-line{
+            font-family:
+                "Consolas",
+                monospace;
+
+            font-size:11px;
+
+            line-height:2;
+
+            color:#86abb9;
+
+            word-break:break-word;
+        }
+
+        .code-key{
+            color:#00d9ff;
+        }
+
+        .code-value{
+            color:#00e6a8;
+        }
+
+        .code-string{
+            color:#d8eff7;
+        }
+
+        /* ================= RESULTS ================= */
+
+        .result-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:17px;
+        }
+
+        .result-card{
+            padding:25px 18px;
+
+            text-align:center;
+
+            border-radius:18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #061827,
+                    #082238
+                );
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .result-card:hover{
+            transform:translateY(-5px);
+
+            border-color:
+                rgba(0,217,255,.35);
+        }
+
+        .result-icon{
+            font-size:26px;
+        }
+
+        .result-card h3{
+            margin-top:12px;
+
+            color:#ffffff;
+
+            font-size:14px;
+        }
+
+        .result-card p{
+            margin-top:7px;
+
+            color:#7895a8;
+
+            font-size:10px;
+
+            line-height:1.6;
+        }
+
+        /* ================= TECHNOLOGY ================= */
+
+        .tech-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(6,1fr);
+
+            gap:14px;
+        }
+
+        .tech{
+            padding:21px 12px;
+
+            text-align:center;
+
+            border-radius:16px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .tech:hover{
+            transform:translateY(-5px);
+
+            border-color:
+                rgba(0,217,255,.38);
+        }
+
+        .tech-logo{
+            width:55px;
+            height:55px;
+
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            border:1px solid
+                rgba(0,217,255,.12);
+
+            font-size:24px;
+        }
+
+        .tech h4{
+            margin-top:11px;
+
+            color:#ffffff;
+
+            font-size:12px;
+        }
+
+        .tech p{
+            margin-top:5px;
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            line-height:1.5;
+        }
+
+        /* ================= FINAL NOTE ================= */
+
+        .note{
+            margin-top:55px;
+
+            padding:25px;
+
+            border-radius:18px;
+
+            background:
+                rgba(255,193,7,.045);
+
+            border:
+                1px solid rgba(255,193,7,.18);
+        }
+
+        .note h3{
+            color:#ffd766;
+
+            font-size:15px;
+        }
+
+        .note p{
+            margin-top:8px;
+
+            color:#abbfc7;
+
+            font-size:11px;
+
+            line-height:1.7;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta{
+            padding-bottom:110px;
+        }
+
+        .cta-box{
+            padding:65px 35px;
+
+            text-align:center;
+
+            border-radius:27px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #033e56,
+                    #07558e,
+                    #006d78
+                );
+
+            border:
+                1px solid rgba(0,217,255,.20);
+
+            box-shadow:
+                0 30px 75px rgba(0,100,160,.18);
+        }
+
+        .cta-box h2{
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:34px;
+        }
+
+        .cta-box p{
+            max-width:700px;
+
+            margin:13px auto 25px;
+
+            color:#d7f6ff;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .cta-btn{
+            display:inline-block;
+
+            padding:13px 23px;
+
+            border-radius:11px;
+
+            background:#ffffff;
+
+            color:#062033;
+
+            font-size:13px;
+
+            font-weight:800;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            padding:32px 0;
+
+            background:#010812;
+
+            text-align:center;
+
+            color:#617d90;
+
+            font-size:12px;
+        }
+
+        footer strong{
+            color:#eaf9ff;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1050px){
+
+            .nav-links{
+                gap:18px;
+            }
+
+            .hero-grid{
+                grid-template-columns:1fr;
+            }
+
+            .feature-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .data-flow{
+                grid-template-columns:
+                    repeat(3,1fr);
+            }
+
+            .flow-card:nth-child(3)::after{
+                display:none;
+            }
+
+            .matrix{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .api-section{
+                grid-template-columns:1fr;
+            }
+
+            .result-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(3,1fr);
+            }
+
+        }
+
+        @media(max-width:750px){
+
+            .nav-links{
+                display:none;
+            }
+
+            .hero{
+                padding-top:120px;
+            }
+
+            .hero h1{
+                font-size:38px;
+            }
+
+            .hero-list{
+                grid-template-columns:1fr;
+            }
+
+            .pipeline-visual{
+                min-height:410px;
+            }
+
+            .visual-node{
+                width:66px;
+                height:66px;
+                border-radius:15px;
+            }
+
+            .visual-node-icon{
+                font-size:21px;
+            }
+
+            .visual-node small{
+                font-size:7px;
+            }
+
+            .vn1{
+                left:15px;
+                top:65px;
+            }
+
+            .vn2{
+                left:27%;
+                top:43px;
+            }
+
+            .vn3{
+                right:27%;
+                top:43px;
+            }
+
+            .vn4{
+                right:15px;
+                top:65px;
+            }
+
+            .vn5{
+                left:27%;
+                bottom:45px;
+            }
+
+            .vn6{
+                right:27%;
+                bottom:45px;
+            }
+
+            .workflow-list::before{
+                left:18px;
+            }
+
+            .workflow-item,
+            .workflow-item.right{
+                width:100%;
+
+                margin-left:0;
+
+                left:0;
+
+                padding:
+                    0 0 35px 55px;
+
+                text-align:left;
+            }
+
+            .workflow-item.left .workflow-card{
+                text-align:left;
+            }
+
+            .workflow-item.left .workflow-card-top{
+                justify-content:flex-start;
+            }
+
+            .workflow-item.left .workflow-dot,
+            .workflow-item.right .workflow-dot{
+                left:5px;
+                right:auto;
+            }
+
+            .data-flow{
+                grid-template-columns:1fr;
+            }
+
+            .flow-card:not(:last-child)::after{
+                content:"↓";
+
+                right:auto;
+
+                left:50%;
+
+                top:auto;
+
+                bottom:-21px;
+
+                transform:translateX(-50%);
+            }
+
+            .flow-card:nth-child(3)::after{
+                display:block;
+            }
+
+            .matrix{
+                grid-template-columns:1fr;
+            }
+
+            .result-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .cta-box{
+                padding:45px 22px;
+            }
+
+            .cta-box h2{
+                font-size:28px;
+            }
+
+        }
+
+        @media(max-width:480px){
+
+            .hero h1{
+                font-size:33px;
+            }
+
+            .result-grid{
+                grid-template-columns:1fr;
+            }
+
+            .live-label{
+                font-size:8px;
+            }
+
+        }
+
+    
+
+/* ================= MOBILE NAVIGATION ================= */
+
+.nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(0,217,255,.30);
+    border-radius:10px;
+    background:rgba(7,27,43,.88);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .nav-toggle{
+        display:flex;
+            flex-shrink:0;
+    }
+
+    .nav-links{
+        display:none !important;
+        position:absolute;
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+        z-index:1000;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:8px;
+        background:rgba(3,17,29,.98);
+        border:1px solid rgba(0,217,255,.18);
+        border-radius:14px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
+        backdrop-filter:blur(16px);
+    }
+
+    .nav-links.open{
+        display:flex !important;
+    }
+
+    .nav-links a{
+        display:block;
+        width:100%;
+        padding:12px 14px;
+        border-radius:9px;
+    }
+
+    .nav-links a:hover{
+        background:rgba(0,217,255,.08);
+    }
+
+    .nav-links a::after{
+        display:none !important;
+    }
+
+    .nav-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                📈
+            </div>
+
+            StockAI
+
+        </a>
+
+
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+
+        <div class="nav-links">
+
+            <a href="index.html">
+    Home
+</a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="features.html">
+                Features
+            </a>
+
+            <a href="models.html">
+                Models
+            </a>
+
+            <a href="workflow.html" class="active">
+                Workflow
+            </a>
+
+        </div>
+
+
+        <a href="index.html#project" class="nav-btn">
+            Try Prediction
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="hero">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <div>
+
+                <div class="badge">
+
+                    <span class="badge-dot"></span>
+
+                    END-TO-END ML PIPELINE
+
+                </div>
+
+
+                <h1>
+
+                    How
+
+                    <span class="gradient-text">
+                        StockAI
+                    </span>
+
+                    Works
+
+                </h1>
+
+
+                <p>
+
+                    Stock Prediction AI follows a structured pipeline
+                    that transforms market data into a machine learning
+                    prediction.
+
+                    The process begins with historical stock information,
+                    continues through data preparation and feature
+                    engineering, then passes the prepared inputs into the
+                    trained Random Forest Regression model.
+
+                    Finally, the prediction is returned through the Flask
+                    API and displayed on the website.
+
+                </p>
+
+
+                <div class="hero-list">
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Collect Market Data
+                    </div>
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Prepare Dataset
+                    </div>
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Build ML Features
+                    </div>
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Generate Prediction
+                    </div>
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Create Trading Signal
+                    </div>
+
+                    <div class="hero-list-item">
+                        <span>✓</span>
+                        Display Final Result
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PIPELINE VISUAL -->
+
+            <div class="pipeline-visual">
+
+                <div class="visual-grid"></div>
+
+                <div class="pipeline-label">
+                    STOCK PREDICTION PIPELINE
+                </div>
+
+                <div class="pipeline-line"></div>
+
+
+                <div class="visual-node vn1">
+
+                    <div class="visual-node-icon">
+                        📡
+                    </div>
+
+                    <small>
+                        MARKET DATA
+                    </small>
+
+                </div>
+
+
+                <div class="visual-node vn2">
+
+                    <div class="visual-node-icon">
+                        🧹
+                    </div>
+
+                    <small>
+                        CLEANING
+                    </small>
+
+                </div>
+
+
+                <div class="visual-node vn3">
+
+                    <div class="visual-node-icon">
+                        ⚙️
+                    </div>
+
+                    <small>
+                        FEATURES
+                    </small>
+
+                </div>
+
+
+                <div class="visual-node vn4">
+
+                    <div class="visual-node-icon">
+                        🧠
+                    </div>
+
+                    <small>
+                        ML MODEL
+                    </small>
+
+                </div>
+
+
+                <div class="visual-node vn5">
+
+                    <div class="visual-node-icon">
+                        🔮
+                    </div>
+
+                    <small>
+                        PREDICTION
+                    </small>
+
+                </div>
+
+
+                <div class="visual-node vn6">
+
+                    <div class="visual-node-icon">
+                        🎯
+                    </div>
+
+                    <small>
+                        SIGNAL
+                    </small>
+
+                </div>
+
+
+                <div class="live-label">
+                    DATA → PROCESSING → MACHINE LEARNING → RESULT
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WORKFLOW TIMELINE ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                STEP-BY-STEP PROCESS
+            </span>
+
+            <h2>
+                Complete StockAI Workflow
+            </h2>
+
+            <p>
+                Each stage has a specific responsibility in the
+                complete stock prediction process.
+            </p>
+
+        </div>
+
+
+        <div class="workflow-list">
+
+
+            <!-- STEP 01 -->
+
+            <div class="workflow-item left">
+
+                <div class="workflow-dot">
+                    01
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 01
+                            </div>
+
+                            <h3>
+                                Market Data Collection
+                            </h3>
+
+                        </div>
+
+                        <div class="step-icon">
+                            📡
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        The system begins by retrieving historical
+                        stock market information. The dataset contains
+                        daily values that describe the stock's market
+                        activity.
+
+                        These raw values provide the foundation for
+                        the machine learning process.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Open
+                        </span>
+
+                        <span class="step-point">
+                            High
+                        </span>
+
+                        <span class="step-point">
+                            Low
+                        </span>
+
+                        <span class="step-point">
+                            Close
+                        </span>
+
+                        <span class="step-point">
+                            Volume
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 02 -->
+
+            <div class="workflow-item right">
+
+                <div class="workflow-dot">
+                    02
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div class="step-icon">
+                            🧹
+                        </div>
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 02
+                            </div>
+
+                            <h3>
+                                Data Preparation
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        After collecting the market information,
+                        the data is prepared before it is supplied
+                        to the machine learning model.
+
+                        Invalid or unusable values are handled and
+                        the dataset is arranged into the required
+                        structure.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Data Cleaning
+                        </span>
+
+                        <span class="step-point">
+                            Numeric Conversion
+                        </span>
+
+                        <span class="step-point">
+                            Missing Values
+                        </span>
+
+                        <span class="step-point">
+                            Data Structure
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 03 -->
+
+            <div class="workflow-item left">
+
+                <div class="workflow-dot">
+                    03
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 03
+                            </div>
+
+                            <h3>
+                                Feature Engineering
+                            </h3>
+
+                        </div>
+
+                        <div class="step-icon">
+                            ⚙️
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        Raw market information is converted into
+                        additional features that describe recent
+                        stock behavior.
+
+                        These features become the input variables
+                        used by the trained regression model.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Previous Close
+                        </span>
+
+                        <span class="step-point">
+                            Daily Return
+                        </span>
+
+                        <span class="step-point">
+                            MA-5
+                        </span>
+
+                        <span class="step-point">
+                            MA-10
+                        </span>
+
+                        <span class="step-point">
+                            Price Range
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 04 -->
+
+            <div class="workflow-item right">
+
+                <div class="workflow-dot">
+                    04
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div class="step-icon">
+                            🧠
+                        </div>
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 04
+                            </div>
+
+                            <h3>
+                                Machine Learning Model
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        The prepared features are given to the trained
+                        Random Forest Regression model.
+
+                        During training, the model learns relationships
+                        between the input features and the next closing
+                        price.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Random Forest
+                        </span>
+
+                        <span class="step-point">
+                            Regression
+                        </span>
+
+                        <span class="step-point">
+                            200 Trees
+                        </span>
+
+                        <span class="step-point">
+                            Trained Model
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 05 -->
+
+            <div class="workflow-item left">
+
+                <div class="workflow-dot">
+                    05
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 05
+                            </div>
+
+                            <h3>
+                                Price Prediction
+                            </h3>
+
+                        </div>
+
+                        <div class="step-icon">
+                            🔮
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        Once the latest feature values are prepared,
+                        they are passed to the trained model.
+
+                        The model generates a numerical prediction
+                        representing the estimated next closing price.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Latest Features
+                        </span>
+
+                        <span class="step-point">
+                            Model Input
+                        </span>
+
+                        <span class="step-point">
+                            Predicted Price
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 06 -->
+
+            <div class="workflow-item right">
+
+                <div class="workflow-dot">
+                    06
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div class="step-icon">
+                            🎯
+                        </div>
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 06
+                            </div>
+
+                            <h3>
+                                Signal Generation
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        The predicted price is compared with the
+                        current market price.
+
+                        The percentage difference is then used
+                        to generate a simplified BUY, SELL or HOLD
+                        signal for the interface.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            BUY
+                        </span>
+
+                        <span class="step-point">
+                            SELL
+                        </span>
+
+                        <span class="step-point">
+                            HOLD
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 07 -->
+
+            <div class="workflow-item left">
+
+                <div class="workflow-dot">
+                    07
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 07
+                            </div>
+
+                            <h3>
+                                Flask API Response
+                            </h3>
+
+                        </div>
+
+                        <div class="step-icon">
+                            🔌
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        The Flask backend packages the model output
+                        and market information into a response.
+
+                        The frontend requests this information through
+                        the prediction API and receives the result.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Flask
+                        </span>
+
+                        <span class="step-point">
+                            REST API
+                        </span>
+
+                        <span class="step-point">
+                            JSON
+                        </span>
+
+                        <span class="step-point">
+                            Backend
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- STEP 08 -->
+
+            <div class="workflow-item right">
+
+                <div class="workflow-dot">
+                    08
+                </div>
+
+
+                <div class="workflow-card">
+
+                    <div class="workflow-card-top">
+
+                        <div class="step-icon">
+                            🖥️
+                        </div>
+
+                        <div>
+
+                            <div class="step-label">
+                                STEP 08
+                            </div>
+
+                            <h3>
+                                Display Final Result
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <p>
+
+                        The website displays the current market price,
+                        daily change, high, low, predicted price and
+                        generated signal in a clear and user-friendly
+                        interface.
+
+                    </p>
+
+
+                    <div class="step-points">
+
+                        <span class="step-point">
+                            Live Price
+                        </span>
+
+                        <span class="step-point">
+                            Prediction
+                        </span>
+
+                        <span class="step-point">
+                            Change
+                        </span>
+
+                        <span class="step-point">
+                            Signal
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DATA FLOW ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                DATA FLOW
+            </span>
+
+            <h2>
+                From Input To Final Output
+            </h2>
+
+            <p>
+                The following flow represents how information travels
+                through the complete StockAI prediction pipeline.
+            </p>
+
+        </div>
+
+
+        <div class="data-flow">
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    📊
+                </div>
+
+                <h4>
+                    Stock Data
+                </h4>
+
+                <p>
+                    Historical and current
+                    market values
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    🧹
+                </div>
+
+                <h4>
+                    Data Processing
+                </h4>
+
+                <p>
+                    Clean and prepare
+                    market data
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    ⚙️
+                </div>
+
+                <h4>
+                    Feature Engineering
+                </h4>
+
+                <p>
+                    Create model input
+                    features
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    🧠
+                </div>
+
+                <h4>
+                    ML Prediction
+                </h4>
+
+                <p>
+                    Random Forest generates
+                    predicted price
+                </p>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-icon">
+                    🎯
+                </div>
+
+                <h4>
+                    Final Signal
+                </h4>
+
+                <p>
+                    BUY, SELL or HOLD
+                    result
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SYSTEM COMPONENTS ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                SYSTEM COMPONENTS
+            </span>
+
+            <h2>
+                How The Main Components Work Together
+            </h2>
+
+            <p>
+                StockAI combines frontend, backend, data processing
+                and machine learning components into a single
+                end-to-end application.
+            </p>
+
+        </div>
+
+
+        <div class="matrix">
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    🌐
+                </div>
+
+                <h3>
+                    Frontend
+                </h3>
+
+                <p>
+
+                    HTML, CSS and JavaScript provide the user
+                    interface. Users can enter a stock symbol
+                    and view the returned prediction results.
+
+                </p>
+
+            </div>
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    🔥
+                </div>
+
+                <h3>
+                    Flask Backend
+                </h3>
+
+                <p>
+
+                    Flask receives prediction requests, retrieves
+                    market information, prepares model features
+                    and calls the trained machine learning model.
+
+                </p>
+
+            </div>
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    📡
+                </div>
+
+                <h3>
+                    Market Data
+                </h3>
+
+                <p>
+
+                    Market data provides the price and volume
+                    information used by the backend for current
+                    analysis and prediction.
+
+                </p>
+
+            </div>
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    Data Processing
+                </h3>
+
+                <p>
+
+                    Pandas and Python logic are used to arrange,
+                    convert and prepare the market dataset before
+                    generating model input.
+
+                </p>
+
+            </div>
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    🌲
+                </div>
+
+                <h3>
+                    Machine Learning
+                </h3>
+
+                <p>
+
+                    The saved Random Forest Regression model acts
+                    as the main prediction engine and estimates
+                    the next closing price.
+
+                </p>
+
+            </div>
+
+
+            <div class="matrix-card">
+
+                <div class="matrix-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Result Engine
+                </h3>
+
+                <p>
+
+                    The backend compares current and predicted
+                    prices and converts the difference into a
+                    BUY, SELL or HOLD signal.
+
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= API ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                FRONTEND ↔ BACKEND
+            </span>
+
+            <h2>
+                Prediction API Connection
+            </h2>
+
+            <p>
+                The browser communicates with the Flask server
+                through the prediction endpoint to receive
+                machine learning results.
+            </p>
+
+        </div>
+
+
+        <div class="api-section">
+
+
+            <div class="api-info">
+
+                <h3>
+                    🔌 How The API Works
+                </h3>
+
+                <p>
+
+                    When a user enters a stock symbol and clicks
+                    Predict Now, the website sends a request to
+                    the Flask prediction endpoint.
+
+                    The backend retrieves market information,
+                    prepares the required features and passes them
+                    to the trained model.
+
+                    The response is then returned to the browser
+                    and displayed in the prediction interface.
+
+                </p>
+
+
+                <div class="api-points">
+
+                    <div class="api-point">
+                        <span>✓</span>
+                        User enters stock symbol
+                    </div>
+
+                    <div class="api-point">
+                        <span>✓</span>
+                        Frontend sends API request
+                    </div>
+
+                    <div class="api-point">
+                        <span>✓</span>
+                        Flask processes the request
+                    </div>
+
+                    <div class="api-point">
+                        <span>✓</span>
+                        Machine learning model predicts
+                    </div>
+
+                    <div class="api-point">
+                        <span>✓</span>
+                        JSON result returns to browser
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="api-code">
+
+                <div class="code-top">
+
+                    <div class="code-dot"></div>
+                    <div class="code-dot"></div>
+                    <div class="code-dot"></div>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    <span class="code-key">
+                        GET
+                    </span>
+
+                    <span class="code-string">
+                        /api/predict?symbol=AAPL
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+                    {
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "status"
+                    </span>
+
+                    :
+
+                    <span class="code-value">
+                        "success"
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "symbol"
+                    </span>
+
+                    :
+
+                    <span class="code-string">
+                        "AAPL"
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "current_price"
+                    </span>
+
+                    :
+
+                    <span class="code-value">
+                        331.34
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "predicted_price"
+                    </span>
+
+                    :
+
+                    <span class="code-value">
+                        253.95
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "change_percent"
+                    </span>
+
+                    :
+
+                    <span class="code-value">
+                        -23.36
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+
+                    &nbsp;&nbsp;
+
+                    <span class="code-key">
+                        "signal"
+                    </span>
+
+                    :
+
+                    <span class="code-string">
+                        "SELL"
+                    </span>
+
+                </div>
+
+
+                <div class="code-line">
+                    }
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= RESULT ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                FINAL OUTPUT
+            </span>
+
+            <h2>
+                What The User Receives
+            </h2>
+
+            <p>
+                After the complete workflow finishes, the website
+                presents the most important values in a simple
+                dashboard-style interface.
+            </p>
+
+        </div>
+
+
+        <div class="result-grid">
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Current Price
+                </h3>
+
+                <p>
+                    Latest closing market price
+                    returned by the backend.
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    📈
+                </div>
+
+                <h3>
+                    Predicted Price
+                </h3>
+
+                <p>
+                    Numerical price prediction
+                    produced by the ML model.
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Price Change
+                </h3>
+
+                <p>
+                    Difference between current
+                    and predicted price.
+                </p>
+
+            </div>
+
+
+            <div class="result-card">
+
+                <div class="result-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Trading Signal
+                </h3>
+
+                <p>
+                    Simplified BUY, SELL or
+                    HOLD output.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                TECHNOLOGY FLOW
+            </span>
+
+            <h2>
+                Technologies Used In The Workflow
+            </h2>
+
+            <p>
+                Each technology contributes a different part to
+                the complete Stock Prediction AI system.
+            </p>
+
+        </div>
+
+
+        <div class="tech-grid">
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🐍
+                </div>
+
+                <h4>
+                    Python
+                </h4>
+
+                <p>
+                    Core programming language
+                </p>
+
+            </div>
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🐼
+                </div>
+
+                <h4>
+                    Pandas
+                </h4>
+
+                <p>
+                    Data processing
+                </p>
+
+            </div>
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🔢
+                </div>
+
+                <h4>
+                    NumPy
+                </h4>
+
+                <p>
+                    Numerical operations
+                </p>
+
+            </div>
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🌲
+                </div>
+
+                <h4>
+                    Scikit-Learn
+                </h4>
+
+                <p>
+                    Machine learning
+                </p>
+
+            </div>
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🔥
+                </div>
+
+                <h4>
+                    Flask
+                </h4>
+
+                <p>
+                    Backend API
+                </p>
+
+            </div>
+
+
+            <div class="tech">
+
+                <div class="tech-logo">
+                    🌐
+                </div>
+
+                <h4>
+                    JavaScript
+                </h4>
+
+                <p>
+                    Frontend interaction
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="note">
+
+            <h3>
+                ⚠️ Important Note
+            </h3>
+
+            <p>
+
+                This workflow describes the machine learning
+                architecture of the Stock Prediction AI project.
+                A stock market prediction is not guaranteed because
+                real-world prices can be affected by many factors
+                that are not included in the project.
+
+                The system is primarily intended for educational,
+                demonstration and project-learning purposes.
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Ready To Explore The Prediction System?
+            </h2>
+
+            <p>
+
+                Go back to the StockAI Home page and test the
+                real-time prediction interface powered by the
+                Flask backend and machine learning model.
+
+            </p>
+
+            <a
+                href="index.html#project"
+                class="cta-btn">
+
+                🚀 Try Prediction
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        <p>
+
+            © 2026 Stock Prediction AI |
+            Developed with ❤️ using
+
+            <strong>
+                Python, Flask & Machine Learning
+            </strong>
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+
+<script>
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if(navToggle && navLinks){
+
+    navToggle.addEventListener("click", function(){
+
+        const isOpen = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+        navToggle.innerHTML = isOpen ? "✕" : "☰";
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link){
+
+        link.addEventListener("click", function(){
+
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.innerHTML = "☰";
+
+        });
+
+    });
+}
+
+</script>
+
+</body>
+</html>

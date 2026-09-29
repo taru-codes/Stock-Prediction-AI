@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Features | Stock Prediction AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#020b18;
+            color:#e6f7ff;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            top:-180px;
+            left:-180px;
+            width:430px;
+            height:430px;
+            background:#00d9ff;
+            opacity:.07;
+            filter:blur(120px);
+            border-radius:50%;
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        body::after{
+            content:"";
+            position:fixed;
+            right:-180px;
+            bottom:-180px;
+            width:430px;
+            height:430px;
+            background:#087cff;
+            opacity:.08;
+            filter:blur(120px);
+            border-radius:50%;
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .container{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:75px;
+
+            display:flex;
+            align-items:center;
+
+            background:rgba(2,11,24,.94);
+            backdrop-filter:blur(18px);
+
+            border-bottom:1px solid rgba(0,217,255,.14);
+
+            z-index:1000;
+        }
+
+        .nav-inner{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:21px;
+            font-weight:800;
+
+            color:#ffffff;
+        }
+
+        .logo-icon{
+            width:39px;
+            height:39px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 10px 25px rgba(0,217,255,.22);
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            gap:30px;
+        }
+
+        .nav-links a{
+            position:relative;
+
+            color:#96afbf;
+
+            font-size:14px;
+            font-weight:600;
+
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active::after{
+            content:"";
+
+            position:absolute;
+
+            left:0;
+            bottom:-9px;
+
+            width:100%;
+            height:2px;
+
+            background:#00d9ff;
+
+            border-radius:10px;
+        }
+
+        .nav-btn{
+            padding:11px 20px;
+
+            border-radius:10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            color:#ffffff;
+
+            font-size:13px;
+            font-weight:700;
+
+            box-shadow:
+                0 8px 22px rgba(0,217,255,.20);
+        }
+
+        /* ================= PAGE HERO ================= */
+
+        .page-hero{
+            padding:150px 0 85px;
+        }
+
+        .hero-grid{
+            display:grid;
+            grid-template-columns:1.05fr .95fr;
+            gap:70px;
+
+            align-items:center;
+        }
+
+        .hero-badge{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+
+            padding:9px 15px;
+
+            border-radius:50px;
+
+            background:rgba(0,217,255,.07);
+
+            border:1px solid rgba(0,217,255,.18);
+
+            color:#00d9ff;
+
+            font-size:11px;
+            font-weight:800;
+
+            letter-spacing:1.7px;
+        }
+
+        .hero-badge-dot{
+            width:7px;
+            height:7px;
+
+            border-radius:50%;
+
+            background:#00e6a8;
+
+            box-shadow:
+                0 0 0 5px rgba(0,230,168,.08);
+        }
+
+        .hero-title{
+            margin-top:20px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:53px;
+            line-height:1.1;
+
+            letter-spacing:-1.5px;
+
+            color:#f5fbff;
+        }
+
+        .gradient-text{
+            background:
+                linear-gradient(
+                    90deg,
+                    #00d9ff,
+                    #087cff,
+                    #00e6a8
+                );
+
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+
+        .hero-description{
+            margin-top:22px;
+
+            max-width:650px;
+
+            color:#9db7c8;
+
+            font-size:15px;
+
+            line-height:1.9;
+        }
+
+        .hero-stats{
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:12px;
+
+            margin-top:30px;
+        }
+
+        .hero-stat{
+            padding:18px;
+
+            border-radius:15px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .hero-stat strong{
+            display:block;
+
+            color:#ffffff;
+
+            font-size:20px;
+        }
+
+        .hero-stat span{
+            display:block;
+
+            margin-top:5px;
+
+            color:#7895a8;
+
+            font-size:10px;
+
+            line-height:1.4;
+        }
+
+        /* ================= HERO VISUAL ================= */
+
+        .visual{
+            position:relative;
+
+            min-height:460px;
+
+            border-radius:28px;
+
+            background:
+                radial-gradient(
+                    circle at 30% 20%,
+                    rgba(0,217,255,.14),
+                    transparent 31%
+                ),
+                radial-gradient(
+                    circle at 80% 75%,
+                    rgba(8,124,255,.14),
+                    transparent 35%
+                ),
+                #061827;
+
+            border:1px solid #15364d;
+
+            overflow:hidden;
+
+            display:flex;
+
+            align-items:center;
+            justify-content:center;
+
+            box-shadow:
+                0 35px 80px rgba(0,0,0,.35);
+        }
+
+        .visual-grid{
+            position:absolute;
+
+            inset:0;
+
+            opacity:.35;
+
+            background:
+                linear-gradient(
+                    rgba(0,217,255,.05) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0,217,255,.05) 1px,
+                    transparent 1px
+                );
+
+            background-size:40px 40px;
+        }
+
+        .orbit{
+            position:absolute;
+
+            border-radius:50%;
+
+            border:1px solid rgba(0,217,255,.17);
+        }
+
+        .orbit.one{
+            width:300px;
+            height:300px;
+        }
+
+        .orbit.two{
+            width:220px;
+            height:220px;
+
+            border-color:
+                rgba(0,124,255,.20);
+        }
+
+        .orbit.three{
+            width:390px;
+            height:390px;
+
+            border-style:dashed;
+
+            border-color:
+                rgba(0,217,255,.10);
+
+            animation:spin 18s linear infinite;
+        }
+
+        @keyframes spin{
+            from{
+                transform:rotate(0deg);
+            }
+
+            to{
+                transform:rotate(360deg);
+            }
+        }
+
+        .ai-core{
+            position:relative;
+
+            z-index:5;
+
+            width:150px;
+            height:150px;
+
+            border-radius:50%;
+
+            display:flex;
+            flex-direction:column;
+
+            align-items:center;
+            justify-content:center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 0 70px rgba(0,217,255,.20);
+        }
+
+        .ai-core-icon{
+            font-size:46px;
+        }
+
+        .ai-core strong{
+            margin-top:5px;
+
+            color:#ffffff;
+
+            font-size:15px;
+        }
+
+        .visual-node{
+            position:absolute;
+
+            z-index:6;
+
+            padding:11px 14px;
+
+            border-radius:12px;
+
+            background:
+                rgba(5,22,38,.96);
+
+            border:1px solid #21455c;
+
+            color:#c8efff;
+
+            font-size:11px;
+            font-weight:700;
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,.30);
+        }
+
+        .visual-node span{
+            color:#00d9ff;
+        }
+
+        .node-a{
+            top:48px;
+            left:35px;
+        }
+
+        .node-b{
+            top:58px;
+            right:32px;
+        }
+
+        .node-c{
+            bottom:65px;
+            left:30px;
+        }
+
+        .node-d{
+            bottom:50px;
+            right:30px;
+        }
+
+        /* ================= SECTION ================= */
+
+        .section{
+            padding:100px 0;
+        }
+
+        .dark-section{
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(0,217,255,.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(8,124,255,.08),
+                    transparent 30%
+                ),
+                #020b18;
+        }
+
+        .section-heading{
+            text-align:center;
+
+            max-width:780px;
+
+            margin:
+                0 auto
+                55px;
+        }
+
+        .section-heading span{
+            color:#00d9ff;
+
+            font-size:11px;
+
+            font-weight:800;
+
+            letter-spacing:2px;
+        }
+
+        .section-heading h2{
+            margin-top:12px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:39px;
+
+            color:#f5fbff;
+        }
+
+        .section-heading p{
+            margin-top:14px;
+
+            color:#9db7c8;
+
+            font-size:14px;
+
+            line-height:1.8;
+        }
+
+        /* ================= FEATURE GRID ================= */
+
+        .feature-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:22px;
+        }
+
+        .feature-card{
+            position:relative;
+
+            padding:30px;
+
+            min-height:275px;
+
+            border-radius:20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(6,24,39,.95),
+                    rgba(4,18,31,.96)
+                );
+
+            border:1px solid #15364d;
+
+            overflow:hidden;
+
+            transition:
+                transform .35s,
+                border-color .35s,
+                box-shadow .35s;
+        }
+
+        .feature-card::before{
+            content:"";
+
+            position:absolute;
+
+            top:0;
+            left:0;
+
+            width:100%;
+            height:4px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #00d9ff,
+                    #087cff
+                );
+        }
+
+        .feature-card::after{
+            content:"";
+
+            position:absolute;
+
+            right:-35px;
+            bottom:-45px;
+
+            width:120px;
+            height:120px;
+
+            border-radius:50%;
+
+            background:#00d9ff;
+
+            opacity:.045;
+
+            filter:blur(20px);
+        }
+
+        .feature-card:hover{
+            transform:translateY(-8px);
+
+            border-color:
+                rgba(0,217,255,.42);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,.30);
+        }
+
+        .feature-icon{
+            width:59px;
+            height:59px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            border:1px solid
+                rgba(0,217,255,.12);
+
+            font-size:25px;
+
+            color:#00d9ff;
+        }
+
+        .feature-number{
+            margin-top:19px;
+
+            color:#00d9ff;
+
+            font-size:10px;
+
+            font-weight:800;
+
+            letter-spacing:1.5px;
+        }
+
+        .feature-card h3{
+            margin-top:8px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:19px;
+
+            color:#f5fbff;
+        }
+
+        .feature-card p{
+            margin-top:11px;
+
+            color:#9db7c8;
+
+            font-size:12.8px;
+
+            line-height:1.75;
+        }
+
+        /* ================= DEEP FEATURE ================= */
+
+        .deep-grid{
+            display:grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:25px;
+        }
+
+        .deep-card{
+            padding:32px;
+
+            border-radius:22px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .deep-header{
+            display:flex;
+
+            align-items:center;
+
+            gap:14px;
+        }
+
+        .deep-icon{
+            width:54px;
+            height:54px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:14px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0,217,255,.12),
+                    rgba(8,124,255,.08)
+                );
+
+            border:1px solid
+                rgba(0,217,255,.15);
+
+            font-size:23px;
+        }
+
+        .deep-header h3{
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:18px;
+        }
+
+        .deep-card > p{
+            margin-top:17px;
+
+            color:#9db7c8;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .check-list{
+            margin-top:20px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:12px;
+        }
+
+        .check-item{
+            display:flex;
+
+            gap:10px;
+
+            color:#bddbe7;
+
+            font-size:12px;
+
+            line-height:1.6;
+        }
+
+        .check{
+            min-width:21px;
+            height:21px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:
+                rgba(0,230,168,.10);
+
+            color:#00e6a8;
+
+            font-size:10px;
+
+            margin-top:1px;
+        }
+
+        /* ================= DATA SECTION ================= */
+
+        .data-table{
+            overflow:hidden;
+
+            border-radius:20px;
+
+            border:1px solid #15364d;
+
+            background:#061827;
+        }
+
+        .data-row{
+            display:grid;
+
+            grid-template-columns:
+                1fr 1.5fr 2fr;
+
+            gap:20px;
+
+            padding:20px 25px;
+
+            border-bottom:1px solid
+                rgba(21,54,77,.75);
+        }
+
+        .data-row:last-child{
+            border-bottom:none;
+        }
+
+        .data-row.header{
+            background:#082238;
+
+            color:#00d9ff;
+
+            font-size:11px;
+
+            font-weight:800;
+
+            letter-spacing:1px;
+        }
+
+        .data-row div{
+            color:#a9c3cf;
+
+            font-size:12px;
+
+            line-height:1.6;
+        }
+
+        .data-row div:first-child{
+            color:#ffffff;
+
+            font-weight:700;
+        }
+
+        /* ================= PERFORMANCE CARDS ================= */
+
+        .performance-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:18px;
+        }
+
+        .performance-card{
+            padding:26px 20px;
+
+            text-align:center;
+
+            border-radius:18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #061827,
+                    #082238
+                );
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .performance-card:hover{
+            transform:translateY(-6px);
+
+            border-color:
+                rgba(0,217,255,.35);
+        }
+
+        .performance-icon{
+            font-size:28px;
+        }
+
+        .performance-card h3{
+            margin-top:12px;
+
+            color:#ffffff;
+
+            font-size:16px;
+        }
+
+        .performance-card p{
+            margin-top:8px;
+
+            color:#8faabc;
+
+            font-size:11px;
+
+            line-height:1.6;
+        }
+
+        /* ================= SECURITY ================= */
+
+        .security{
+            display:grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:25px;
+
+            align-items:stretch;
+        }
+
+        .security-box{
+            padding:32px;
+
+            border-radius:22px;
+
+            background:
+                radial-gradient(
+                    circle at top right,
+                    rgba(0,217,255,.10),
+                    transparent 35%
+                ),
+                #061827;
+
+            border:1px solid #15364d;
+        }
+
+        .security-box h3{
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:20px;
+        }
+
+        .security-box p{
+            margin-top:12px;
+
+            color:#9db7c8;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .security-points{
+            margin-top:20px;
+
+            display:grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:12px;
+        }
+
+        .security-point{
+            padding:14px;
+
+            border-radius:12px;
+
+            background:#071827;
+
+            border:1px solid #17364d;
+
+            font-size:11px;
+
+            color:#c6e6f2;
+        }
+
+        .security-point span{
+            color:#00d9ff;
+
+            margin-right:7px;
+        }
+
+        /* ================= TECHNOLOGY ================= */
+
+        .tech-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(6,1fr);
+
+            gap:14px;
+        }
+
+        .tech-card{
+            padding:21px 14px;
+
+            text-align:center;
+
+            border-radius:16px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .tech-card:hover{
+            transform:translateY(-5px);
+
+            border-color:
+                rgba(0,217,255,.35);
+        }
+
+        .tech-logo{
+            width:56px;
+            height:56px;
+
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            border:1px solid
+                rgba(0,217,255,.12);
+
+            font-size:24px;
+        }
+
+        .tech-card h4{
+            margin-top:12px;
+
+            color:#ffffff;
+
+            font-size:13px;
+        }
+
+        .tech-card p{
+            margin-top:6px;
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            line-height:1.5;
+        }
+
+        /* ================= FINAL CTA ================= */
+
+        .cta{
+            padding-bottom:110px;
+        }
+
+        .cta-box{
+            position:relative;
+
+            padding:65px 40px;
+
+            border-radius:27px;
+
+            text-align:center;
+
+            overflow:hidden;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #033e56,
+                    #07558e,
+                    #006d78
+                );
+
+            border:1px solid
+                rgba(0,217,255,.20);
+
+            box-shadow:
+                0 30px 75px rgba(0,100,160,.18);
+        }
+
+        .cta-box::before{
+            content:"";
+
+            position:absolute;
+
+            width:230px;
+            height:230px;
+
+            left:-90px;
+            top:-100px;
+
+            border-radius:50%;
+
+            border:1px solid
+                rgba(255,255,255,.10);
+        }
+
+        .cta-box h2{
+            position:relative;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:35px;
+
+            color:#ffffff;
+        }
+
+        .cta-box p{
+            position:relative;
+
+            max-width:700px;
+
+            margin:14px auto 26px;
+
+            color:#d7f6ff;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .cta-btn{
+            position:relative;
+
+            display:inline-block;
+
+            padding:13px 23px;
+
+            border-radius:11px;
+
+            background:#ffffff;
+
+            color:#062033;
+
+            font-size:13px;
+
+            font-weight:800;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            padding:32px 0;
+
+            text-align:center;
+
+            background:#010812;
+
+            color:#617d90;
+
+            font-size:12px;
+        }
+
+        footer strong{
+            color:#eaf9ff;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1050px){
+
+            .nav-links{
+                gap:18px;
+            }
+
+            .hero-grid{
+                grid-template-columns:1fr;
+            }
+
+            .feature-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(3,1fr);
+            }
+
+            .performance-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+        }
+
+        @media(max-width:700px){
+
+            .nav-links{
+                display:none;
+            }
+
+            .page-hero{
+                padding-top:120px;
+            }
+
+            .hero-title{
+                font-size:38px;
+            }
+
+            .hero-stats{
+                grid-template-columns:1fr;
+            }
+
+            .feature-grid,
+            .deep-grid,
+            .security{
+                grid-template-columns:1fr;
+            }
+
+            .performance-grid{
+                grid-template-columns:1fr;
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .data-table{
+                overflow-x:auto;
+            }
+
+            .data-row{
+                min-width:750px;
+            }
+
+            .security-points{
+                grid-template-columns:1fr;
+            }
+
+            .cta-box{
+                padding:45px 22px;
+            }
+
+            .cta-box h2{
+                font-size:28px;
+            }
+
+        }
+
+    
+
+/* ================= MOBILE NAVIGATION ================= */
+
+.nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(0,217,255,.30);
+    border-radius:10px;
+    background:rgba(7,27,43,.88);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .nav-toggle{
+        display:flex;
+            flex-shrink:0;
+    }
+
+    .nav-links{
+        display:none !important;
+        position:absolute;
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+        z-index:1000;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:8px;
+        background:rgba(3,17,29,.98);
+        border:1px solid rgba(0,217,255,.18);
+        border-radius:14px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
+        backdrop-filter:blur(16px);
+    }
+
+    .nav-links.open{
+        display:flex !important;
+    }
+
+    .nav-links a{
+        display:block;
+        width:100%;
+        padding:12px 14px;
+        border-radius:9px;
+    }
+
+    .nav-links a:hover{
+        background:rgba(0,217,255,.08);
+    }
+
+    .nav-links a::after{
+        display:none !important;
+    }
+
+    .nav-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                📈
+            </div>
+
+            StockAI
+
+        </a>
+
+
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+
+        <div class="nav-links">
+            <a href="index.html">
+    Home
+</a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="features.html" class="active">
+                Features
+            </a>
+
+            <a href="models.html">
+                Models
+            </a>
+
+            <a href="workflow.html">
+                Workflow
+            </a>
+
+        </div>
+
+
+        <a href="index.html#project" class="nav-btn">
+            Try Prediction
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <div>
+
+                <div class="hero-badge">
+
+                    <span class="hero-badge-dot"></span>
+
+                    ADVANCED STOCK AI PLATFORM
+
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    Powerful
+
+                    <span class="gradient-text">
+                        Features
+                    </span>
+
+                    For Intelligent
+                    Market Prediction
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    StockAI is designed to combine market data,
+                    feature engineering, machine learning and
+                    real-time prediction in a single web-based
+                    platform.
+
+                    From collecting historical information to
+                    generating a final prediction signal, every
+                    part of the system is designed to provide a
+                    clear and understandable machine learning
+                    experience.
+
+                </p>
+
+
+                <div class="hero-stats">
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            10+
+                        </strong>
+
+                        <span>
+                            ML Prediction Features
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            200
+                        </strong>
+
+                        <span>
+                            Random Forest Trees
+                        </span>
+
+                    </div>
+
+
+                    <div class="hero-stat">
+
+                        <strong>
+                            3
+                        </strong>
+
+                        <span>
+                            Trading Signals
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- VISUAL -->
+
+            <div class="visual">
+
+                <div class="visual-grid"></div>
+
+                <div class="orbit one"></div>
+
+                <div class="orbit two"></div>
+
+                <div class="orbit three"></div>
+
+
+                <div class="visual-node node-a">
+
+                    <span>📊</span>
+                    Market Data
+
+                </div>
+
+
+                <div class="visual-node node-b">
+
+                    <span>🧠</span>
+                    ML Model
+
+                </div>
+
+
+                <div class="visual-node node-c">
+
+                    <span>⚙️</span>
+                    Features
+
+                </div>
+
+
+                <div class="visual-node node-d">
+
+                    <span>📈</span>
+                    Prediction
+
+                </div>
+
+
+                <div class="ai-core">
+
+                    <div class="ai-core-icon">
+                        🤖
+                    </div>
+
+                    <strong>
+                        STOCK AI
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CORE FEATURES ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                CORE FEATURES
+            </span>
+
+            <h2>
+                Everything Inside StockAI
+            </h2>
+
+            <p>
+                The platform contains multiple components that
+                work together to transform raw stock market data
+                into an easy-to-understand machine learning
+                prediction.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <!-- 01 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🤖
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 01
+                </div>
+
+                <h3>
+                    AI-Based Stock Prediction
+                </h3>
+
+                <p>
+                    Uses a trained machine learning regression
+                    model to estimate a future stock closing
+                    price from current market features.
+                </p>
+
+            </div>
+
+
+            <!-- 02 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📡
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 02
+                </div>
+
+                <h3>
+                    Real-Time Market Data
+                </h3>
+
+                <p>
+                    The Flask backend retrieves stock information
+                    from market data sources so the interface can
+                    display current price, high, low and change.
+                </p>
+
+            </div>
+
+
+            <!-- 03 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🌲
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 03
+                </div>
+
+                <h3>
+                    Random Forest Regression
+                </h3>
+
+                <p>
+                    Multiple decision trees work together as an
+                    ensemble model to learn patterns in historical
+                    stock market data.
+                </p>
+
+            </div>
+
+
+            <!-- 04 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📊
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 04
+                </div>
+
+                <h3>
+                    Historical Data Analysis
+                </h3>
+
+                <p>
+                    Historical market values are processed to
+                    understand previous price movement and create
+                    useful input variables for the ML model.
+                </p>
+
+            </div>
+
+
+            <!-- 05 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚙️
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 05
+                </div>
+
+                <h3>
+                    Feature Engineering
+                </h3>
+
+                <p>
+                    Raw market values are converted into additional
+                    indicators such as daily return, previous close,
+                    moving averages and price range.
+                </p>
+
+            </div>
+
+
+            <!-- 06 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🎯
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 06
+                </div>
+
+                <h3>
+                    BUY / SELL / HOLD Signal
+                </h3>
+
+                <p>
+                    The system compares the predicted and current
+                    prices and generates a simple signal for
+                    easier interpretation of the model output.
+                </p>
+
+            </div>
+
+
+            <!-- 07 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 07
+                </div>
+
+                <h3>
+                    Fast Flask API
+                </h3>
+
+                <p>
+                    The frontend communicates with the Python
+                    backend through a lightweight API endpoint
+                    to request prediction results.
+                </p>
+
+            </div>
+
+
+            <!-- 08 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔄
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 08
+                </div>
+
+                <h3>
+                    Automatic Refresh
+                </h3>
+
+                <p>
+                    The prediction interface can refresh market
+                    information periodically so displayed data
+                    remains updated during use.
+                </p>
+
+            </div>
+
+
+            <!-- 09 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 09
+                </div>
+
+                <h3>
+                    Responsive Design
+                </h3>
+
+                <p>
+                    The user interface adapts to desktop,
+                    tablet and mobile screens for a consistent
+                    viewing experience.
+                </p>
+
+            </div>
+
+
+            <!-- 10 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🧮
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 10
+                </div>
+
+                <h3>
+                    Prediction Metrics
+                </h3>
+
+                <p>
+                    Machine learning evaluation can be represented
+                    using metrics such as MAE, RMSE and R² to
+                    understand model performance.
+                </p>
+
+            </div>
+
+
+            <!-- 11 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    🔗
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 11
+                </div>
+
+                <h3>
+                    Frontend & Backend Integration
+                </h3>
+
+                <p>
+                    HTML, CSS and JavaScript communicate with
+                    the Flask backend to create an interactive
+                    end-to-end prediction system.
+                </p>
+
+            </div>
+
+
+            <!-- 12 -->
+
+            <div class="feature-card">
+
+                <div class="feature-icon">
+                    💾
+                </div>
+
+                <div class="feature-number">
+                    FEATURE 12
+                </div>
+
+                <h3>
+                    Saved Trained Model
+                </h3>
+
+                <p>
+                    The trained machine learning model is stored
+                    as a reusable model file and loaded by the
+                    backend whenever predictions are requested.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DETAILED FEATURES ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                DETAILED CAPABILITIES
+            </span>
+
+            <h2>
+                How The Main Features Work
+            </h2>
+
+            <p>
+                Each component has a specific role in the complete
+                StockAI pipeline, from collecting market data to
+                producing the final prediction.
+            </p>
+
+        </div>
+
+
+        <div class="deep-grid">
+
+
+            <div class="deep-card">
+
+                <div class="deep-header">
+
+                    <div class="deep-icon">
+                        📥
+                    </div>
+
+                    <h3>
+                        Market Data Collection
+                    </h3>
+
+                </div>
+
+
+                <p>
+
+                    The system receives market information and
+                    prepares it for machine learning. The collected
+                    information represents daily stock activity and
+                    forms the base of the prediction process.
+
+                </p>
+
+
+                <div class="check-list">
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Open price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Highest price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Lowest price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Closing price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Trading volume
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="deep-card">
+
+                <div class="deep-header">
+
+                    <div class="deep-icon">
+                        ⚙️
+                    </div>
+
+                    <h3>
+                        Smart Feature Engineering
+                    </h3>
+
+                </div>
+
+
+                <p>
+
+                    The project transforms raw market values into
+                    additional features. These derived variables
+                    give the machine learning model more information
+                    about recent price behavior.
+
+                </p>
+
+
+                <div class="check-list">
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Previous Close
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Daily Return
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        5-Day Moving Average
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        10-Day Moving Average
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Daily Price Range
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="deep-card">
+
+                <div class="deep-header">
+
+                    <div class="deep-icon">
+                        🌲
+                    </div>
+
+                    <h3>
+                        Random Forest Intelligence
+                    </h3>
+
+                </div>
+
+
+                <p>
+
+                    The trained Random Forest Regression model combines
+                    the outputs of many decision trees. Instead of
+                    depending on a single tree, the ensemble approach
+                    uses multiple trees to produce the final regression
+                    prediction.
+
+                </p>
+
+
+                <div class="check-list">
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Multiple decision trees
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Ensemble learning
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Regression-based prediction
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Historical pattern learning
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="deep-card">
+
+                <div class="deep-header">
+
+                    <div class="deep-icon">
+                        🎯
+                    </div>
+
+                    <h3>
+                        Prediction & Signal Engine
+                    </h3>
+
+                </div>
+
+
+                <p>
+
+                    After the model generates a predicted price,
+                    the system compares it with the current price.
+                    This difference is then used to generate a
+                    simple BUY, SELL or HOLD signal.
+
+                </p>
+
+
+                <div class="check-list">
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Current market price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Predicted next price
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        Percentage difference
+
+                    </div>
+
+
+                    <div class="check-item">
+
+                        <div class="check">
+                            ✓
+                        </div>
+
+                        BUY / SELL / HOLD output
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= DATA FEATURES ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MACHINE LEARNING FEATURES
+            </span>
+
+            <h2>
+                Data Used By The Model
+            </h2>
+
+            <p>
+                The model works with market variables and calculated
+                features prepared from the historical stock dataset.
+            </p>
+
+        </div>
+
+
+        <div class="data-table">
+
+
+            <div class="data-row header">
+
+                <div>
+                    FEATURE
+                </div>
+
+                <div>
+                    TYPE
+                </div>
+
+                <div>
+                    PURPOSE
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Open
+                </div>
+
+                <div>
+                    Market Price
+                </div>
+
+                <div>
+                    Opening price of the stock during the trading day.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    High
+                </div>
+
+                <div>
+                    Market Price
+                </div>
+
+                <div>
+                    Highest price recorded during the trading day.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Low
+                </div>
+
+                <div>
+                    Market Price
+                </div>
+
+                <div>
+                    Lowest price recorded during the trading day.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Close
+                </div>
+
+                <div>
+                    Market Price
+                </div>
+
+                <div>
+                    Closing price used as an important prediction variable.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Volume
+                </div>
+
+                <div>
+                    Market Activity
+                </div>
+
+                <div>
+                    Number of shares traded during the trading day.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Previous Close
+                </div>
+
+                <div>
+                    Derived Feature
+                </div>
+
+                <div>
+                    Previous trading day's closing price.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Daily Return
+                </div>
+
+                <div>
+                    Derived Feature
+                </div>
+
+                <div>
+                    Represents the relative daily movement of the closing price.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    MA-5
+                </div>
+
+                <div>
+                    Moving Average
+                </div>
+
+                <div>
+                    Five-day moving average of the closing price.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    MA-10
+                </div>
+
+                <div>
+                    Moving Average
+                </div>
+
+                <div>
+                    Ten-day moving average of the closing price.
+                </div>
+
+            </div>
+
+
+            <div class="data-row">
+
+                <div>
+                    Price Range
+                </div>
+
+                <div>
+                    Derived Feature
+                </div>
+
+                <div>
+                    Difference between the day's high and low prices.
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PERFORMANCE ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MODEL EVALUATION
+            </span>
+
+            <h2>
+                Understanding Prediction Quality
+            </h2>
+
+            <p>
+                Machine learning performance can be studied using
+                evaluation metrics that compare actual values with
+                predicted values.
+            </p>
+
+        </div>
+
+
+        <div class="performance-grid">
+
+
+            <div class="performance-card">
+
+                <div class="performance-icon">
+                    📏
+                </div>
+
+                <h3>
+                    MAE
+                </h3>
+
+                <p>
+                    Mean Absolute Error measures the average absolute
+                    difference between actual and predicted values.
+                </p>
+
+            </div>
+
+
+            <div class="performance-card">
+
+                <div class="performance-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    RMSE
+                </h3>
+
+                <p>
+                    Root Mean Square Error gives greater importance
+                    to larger prediction errors.
+                </p>
+
+            </div>
+
+
+            <div class="performance-card">
+
+                <div class="performance-icon">
+                    📐
+                </div>
+
+                <h3>
+                    R² Score
+                </h3>
+
+                <p>
+                    R² indicates how well the model explains the
+                    variation in the target data.
+                </p>
+
+            </div>
+
+
+            <div class="performance-card">
+
+                <div class="performance-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Target
+                </h3>
+
+                <p>
+                    The regression model is trained to predict the
+                    next stock closing price.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= SECURITY & RELIABILITY ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                SYSTEM DESIGN
+            </span>
+
+            <h2>
+                Reliable Project Architecture
+            </h2>
+
+            <p>
+                StockAI separates the frontend, backend and model
+                responsibilities so that each component has a clear
+                purpose in the complete system.
+            </p>
+
+        </div>
+
+
+        <div class="security">
+
+
+            <div class="security-box">
+
+                <h3>
+                    🔌 Backend Integration
+                </h3>
+
+                <p>
+
+                    The Flask application acts as the communication
+                    layer between the browser, market data source and
+                    trained machine learning model.
+
+                </p>
+
+
+                <div class="security-points">
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Flask Backend
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        REST API
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Model Loading
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        JSON Response
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="security-box">
+
+                <h3>
+                    🖥️ Frontend Experience
+                </h3>
+
+                <p>
+
+                    The website provides a simple interface where
+                    users can enter a stock symbol and view market
+                    information and prediction output without
+                    interacting directly with the Python backend.
+
+                </p>
+
+
+                <div class="security-points">
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Simple Input
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Live Output
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Responsive UI
+                    </div>
+
+                    <div class="security-point">
+                        <span>✓</span>
+                        Clear Signal
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                TECHNOLOGY STACK
+            </span>
+
+            <h2>
+                Technologies Behind StockAI
+            </h2>
+
+            <p>
+                The project brings together programming, data
+                processing, machine learning and web technologies.
+            </p>
+
+        </div>
+
+
+        <div class="tech-grid">
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🐍
+                </div>
+
+                <h4>
+                    Python
+                </h4>
+
+                <p>
+                    Core programming language
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🔥
+                </div>
+
+                <h4>
+                    Flask
+                </h4>
+
+                <p>
+                    Backend API framework
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🌲
+                </div>
+
+                <h4>
+                    Random Forest
+                </h4>
+
+                <p>
+                    ML regression algorithm
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🐼
+                </div>
+
+                <h4>
+                    Pandas
+                </h4>
+
+                <p>
+                    Data processing
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🔢
+                </div>
+
+                <h4>
+                    NumPy
+                </h4>
+
+                <p>
+                    Numerical operations
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-logo">
+                    🌐
+                </div>
+
+                <h4>
+                    HTML / CSS
+                </h4>
+
+                <p>
+                    Frontend interface
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Explore The Power Of StockAI
+            </h2>
+
+            <p>
+                Explore the machine learning models, system workflow
+                and real-time prediction features that power this
+                Stock Prediction AI project.
+            </p>
+
+            <a
+                href="index.html#project"
+                class="cta-btn">
+
+                🚀 Try Stock Prediction
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        <p>
+
+            © 2026 Stock Prediction AI |
+            Developed with ❤️ using
+
+            <strong>
+                Python, Flask & Machine Learning
+            </strong>
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+
+<script>
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if(navToggle && navLinks){
+
+    navToggle.addEventListener("click", function(){
+
+        const isOpen = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+        navToggle.innerHTML = isOpen ? "✕" : "☰";
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link){
+
+        link.addEventListener("click", function(){
+
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.innerHTML = "☰";
+
+        });
+
+    });
+}
+
+</script>
+
+</body>
+</html>

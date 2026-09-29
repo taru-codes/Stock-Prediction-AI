@@ -1,0 +1,2721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Models | Stock Prediction AI</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
+
+        html{
+            scroll-behavior:smooth;
+        }
+
+        body{
+            font-family:'Inter',sans-serif;
+            background:#020b18;
+            color:#e6f7ff;
+            overflow-x:hidden;
+        }
+
+        body::before{
+            content:"";
+            position:fixed;
+            width:430px;
+            height:430px;
+            top:-180px;
+            left:-170px;
+            border-radius:50%;
+            background:#00d9ff;
+            opacity:.06;
+            filter:blur(120px);
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        body::after{
+            content:"";
+            position:fixed;
+            width:430px;
+            height:430px;
+            right:-180px;
+            bottom:-180px;
+            border-radius:50%;
+            background:#087cff;
+            opacity:.07;
+            filter:blur(120px);
+            pointer-events:none;
+            z-index:-1;
+        }
+
+        a{
+            text-decoration:none;
+            color:inherit;
+        }
+
+        .container{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+        }
+
+        /* ================= NAVBAR ================= */
+
+        .navbar{
+            position:fixed;
+            top:0;
+            left:0;
+            width:100%;
+            height:75px;
+
+            display:flex;
+            align-items:center;
+
+            background:rgba(2,11,24,.95);
+            backdrop-filter:blur(18px);
+
+            border-bottom:1px solid rgba(0,217,255,.14);
+
+            z-index:1000;
+        }
+
+        .nav-inner{
+            width:90%;
+            max-width:1220px;
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+        }
+
+        .logo{
+            display:flex;
+            align-items:center;
+            gap:10px;
+
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+            font-size:21px;
+            font-weight:800;
+        }
+
+        .logo-icon{
+            width:39px;
+            height:39px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:11px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 10px 25px rgba(0,217,255,.22);
+        }
+
+        .nav-links{
+            display:flex;
+            align-items:center;
+            gap:30px;
+        }
+
+        .nav-links a{
+            position:relative;
+
+            color:#96afbf;
+
+            font-size:14px;
+            font-weight:600;
+
+            transition:.3s;
+        }
+
+        .nav-links a:hover{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active{
+            color:#00d9ff;
+        }
+
+        .nav-links a.active::after{
+            content:"";
+
+            position:absolute;
+
+            bottom:-9px;
+            left:0;
+
+            width:100%;
+            height:2px;
+
+            background:#00d9ff;
+
+            border-radius:20px;
+        }
+
+        .nav-btn{
+            padding:11px 20px;
+
+            border-radius:10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            color:#ffffff;
+
+            font-size:13px;
+            font-weight:700;
+
+            box-shadow:
+                0 8px 22px rgba(0,217,255,.20);
+        }
+
+        /* ================= HERO ================= */
+
+        .page-hero{
+            padding:150px 0 90px;
+        }
+
+        .hero-grid{
+            display:grid;
+            grid-template-columns:1.05fr .95fr;
+            gap:70px;
+
+            align-items:center;
+        }
+
+        .badge{
+            display:inline-flex;
+            align-items:center;
+            gap:8px;
+
+            padding:9px 15px;
+
+            border-radius:50px;
+
+            color:#00d9ff;
+
+            background:
+                rgba(0,217,255,.07);
+
+            border:
+                1px solid rgba(0,217,255,.18);
+
+            font-size:11px;
+            font-weight:800;
+
+            letter-spacing:1.6px;
+        }
+
+        .badge-dot{
+            width:7px;
+            height:7px;
+
+            border-radius:50%;
+
+            background:#00e6a8;
+
+            box-shadow:
+                0 0 0 5px rgba(0,230,168,.08);
+        }
+
+        .hero-title{
+            margin-top:20px;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:54px;
+            line-height:1.1;
+
+            letter-spacing:-1.5px;
+
+            color:#f5fbff;
+        }
+
+        .gradient-text{
+            background:
+                linear-gradient(
+                    90deg,
+                    #00d9ff,
+                    #087cff,
+                    #00e6a8
+                );
+
+            -webkit-background-clip:text;
+            -webkit-text-fill-color:transparent;
+            background-clip:text;
+        }
+
+        .hero-description{
+            margin-top:23px;
+
+            color:#9db7c8;
+
+            font-size:15px;
+
+            line-height:1.9;
+        }
+
+        .hero-points{
+            margin-top:25px;
+
+            display:grid;
+
+            grid-template-columns:
+                repeat(2,1fr);
+
+            gap:12px;
+        }
+
+        .hero-point{
+            padding:14px;
+
+            border-radius:13px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            color:#bedfea;
+
+            font-size:11px;
+        }
+
+        .hero-point span{
+            color:#00e6a8;
+            margin-right:7px;
+        }
+
+        /* ================= MODEL VISUAL ================= */
+
+        .model-visual{
+            position:relative;
+
+            min-height:480px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:28px;
+
+            background:
+                radial-gradient(
+                    circle at 50% 48%,
+                    rgba(0,217,255,.13),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 20% 20%,
+                    rgba(8,124,255,.10),
+                    transparent 30%
+                ),
+                #061827;
+
+            border:1px solid #15364d;
+
+            overflow:hidden;
+
+            box-shadow:
+                0 35px 80px rgba(0,0,0,.35);
+        }
+
+        .visual-grid{
+            position:absolute;
+            inset:0;
+
+            background:
+                linear-gradient(
+                    rgba(0,217,255,.045) 1px,
+                    transparent 1px
+                ),
+                linear-gradient(
+                    90deg,
+                    rgba(0,217,255,.045) 1px,
+                    transparent 1px
+                );
+
+            background-size:38px 38px;
+        }
+
+        .ring{
+            position:absolute;
+
+            border-radius:50%;
+
+            border:1px solid
+                rgba(0,217,255,.13);
+        }
+
+        .ring-one{
+            width:340px;
+            height:340px;
+        }
+
+        .ring-two{
+            width:260px;
+            height:260px;
+
+            border-color:
+                rgba(0,124,255,.18);
+        }
+
+        .ring-three{
+            width:430px;
+            height:430px;
+
+            border-style:dashed;
+
+            border-color:
+                rgba(0,217,255,.07);
+
+            animation:rotate 20s linear infinite;
+        }
+
+        @keyframes rotate{
+            from{
+                transform:rotate(0deg);
+            }
+
+            to{
+                transform:rotate(360deg);
+            }
+        }
+
+        .forest-core{
+            position:relative;
+            z-index:5;
+
+            width:165px;
+            height:165px;
+
+            border-radius:50%;
+
+            display:flex;
+            flex-direction:column;
+
+            align-items:center;
+            justify-content:center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #00d9ff,
+                    #087cff
+                );
+
+            box-shadow:
+                0 0 70px rgba(0,217,255,.25);
+        }
+
+        .forest-core-icon{
+            font-size:52px;
+        }
+
+        .forest-core strong{
+            margin-top:5px;
+
+            color:#ffffff;
+
+            font-size:15px;
+        }
+
+        .tree{
+            position:absolute;
+
+            z-index:6;
+
+            width:74px;
+            height:74px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:50%;
+
+            background:#071b2b;
+
+            border:
+                1px solid rgba(0,217,255,.22);
+
+            box-shadow:
+                0 12px 30px rgba(0,0,0,.30);
+
+            font-size:28px;
+        }
+
+        .tree-1{
+            top:45px;
+            left:48px;
+        }
+
+        .tree-2{
+            top:38px;
+            right:48px;
+        }
+
+        .tree-3{
+            bottom:44px;
+            left:48px;
+        }
+
+        .tree-4{
+            bottom:40px;
+            right:48px;
+        }
+
+        .connect{
+            position:absolute;
+
+            height:1px;
+
+            width:120px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    transparent,
+                    rgba(0,217,255,.30),
+                    transparent
+                );
+        }
+
+        .connect.one{
+            transform:rotate(35deg);
+        }
+
+        .connect.two{
+            transform:rotate(-35deg);
+        }
+
+        .connect.three{
+            transform:rotate(-35deg);
+        }
+
+        .connect.four{
+            transform:rotate(35deg);
+        }
+
+        /* ================= SECTION ================= */
+
+        .section{
+            padding:100px 0;
+        }
+
+        .dark-section{
+            background:
+                radial-gradient(
+                    circle at 10% 20%,
+                    rgba(0,217,255,.08),
+                    transparent 30%
+                ),
+                radial-gradient(
+                    circle at 90% 80%,
+                    rgba(8,124,255,.08),
+                    transparent 30%
+                ),
+                #020b18;
+        }
+
+        .section-heading{
+            text-align:center;
+
+            max-width:800px;
+
+            margin:
+                0 auto
+                55px;
+        }
+
+        .section-heading span{
+            color:#00d9ff;
+
+            font-size:11px;
+
+            font-weight:800;
+
+            letter-spacing:2px;
+        }
+
+        .section-heading h2{
+            margin-top:12px;
+
+            color:#f5fbff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:39px;
+        }
+
+        .section-heading p{
+            margin-top:14px;
+
+            color:#9db7c8;
+
+            font-size:14px;
+
+            line-height:1.8;
+        }
+
+        /* ================= MAIN MODEL ================= */
+
+        .main-model{
+            display:grid;
+
+            grid-template-columns:
+                .85fr 1.15fr;
+
+            gap:25px;
+        }
+
+        .model-profile{
+            padding:33px;
+
+            border-radius:23px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #061827,
+                    #082238
+                );
+
+            border:1px solid #15364d;
+        }
+
+        .model-logo{
+            width:72px;
+            height:72px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:20px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(0,217,255,.14),
+                    rgba(8,124,255,.08)
+                );
+
+            border:1px solid
+                rgba(0,217,255,.15);
+
+            font-size:33px;
+        }
+
+        .model-profile h3{
+            margin-top:20px;
+
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:23px;
+        }
+
+        .model-profile p{
+            margin-top:12px;
+
+            color:#9db7c8;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .model-tags{
+            display:flex;
+
+            flex-wrap:wrap;
+
+            gap:8px;
+
+            margin-top:20px;
+        }
+
+        .model-tag{
+            padding:7px 11px;
+
+            border-radius:8px;
+
+            background:#071827;
+
+            border:1px solid #17364d;
+
+            color:#b9dce9;
+
+            font-size:10px;
+        }
+
+        .model-details{
+            padding:33px;
+
+            border-radius:23px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .detail-title{
+            color:#00d9ff;
+
+            font-size:11px;
+
+            font-weight:800;
+
+            letter-spacing:1.5px;
+        }
+
+        .detail-list{
+            margin-top:20px;
+
+            display:flex;
+
+            flex-direction:column;
+
+            gap:16px;
+        }
+
+        .detail-item{
+            display:grid;
+
+            grid-template-columns:
+                150px 1fr;
+
+            gap:15px;
+
+            padding-bottom:16px;
+
+            border-bottom:
+                1px solid
+                rgba(21,54,77,.70);
+        }
+
+        .detail-item:last-child{
+            border-bottom:none;
+            padding-bottom:0;
+        }
+
+        .detail-item strong{
+            color:#ffffff;
+
+            font-size:12px;
+        }
+
+        .detail-item p{
+            color:#91adbb;
+
+            font-size:11px;
+
+            line-height:1.6;
+        }
+
+        /* ================= WHY RANDOM FOREST ================= */
+
+        .why-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:22px;
+        }
+
+        .why-card{
+            padding:30px;
+
+            border-radius:20px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .why-card:hover{
+            transform:translateY(-7px);
+
+            border-color:
+                rgba(0,217,255,.40);
+
+            box-shadow:
+                0 25px 55px rgba(0,0,0,.28);
+        }
+
+        .why-icon{
+            width:58px;
+            height:58px;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            color:#00d9ff;
+
+            font-size:25px;
+        }
+
+        .why-card h3{
+            margin-top:18px;
+
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:18px;
+        }
+
+        .why-card p{
+            margin-top:10px;
+
+            color:#9db7c8;
+
+            font-size:12.5px;
+
+            line-height:1.75;
+        }
+
+        /* ================= ARCHITECTURE ================= */
+
+        .architecture{
+            padding:35px;
+
+            border-radius:24px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+        }
+
+        .architecture-flow{
+            display:grid;
+
+            grid-template-columns:
+                repeat(5,1fr);
+
+            gap:12px;
+
+            align-items:center;
+        }
+
+        .arch-box{
+            min-height:135px;
+
+            padding:20px 13px;
+
+            display:flex;
+            flex-direction:column;
+
+            align-items:center;
+            justify-content:center;
+
+            text-align:center;
+
+            border-radius:17px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #071a2b,
+                    #08243a
+                );
+
+            border:1px solid #173b53;
+        }
+
+        .arch-icon{
+            font-size:28px;
+        }
+
+        .arch-box h4{
+            margin-top:12px;
+
+            color:#ffffff;
+
+            font-size:12px;
+        }
+
+        .arch-box p{
+            margin-top:6px;
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            line-height:1.5;
+        }
+
+        .arch-arrow{
+            color:#00d9ff;
+
+            font-size:23px;
+
+            text-align:center;
+        }
+
+        /* ================= PARAMETER GRID ================= */
+
+        .parameter-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(4,1fr);
+
+            gap:18px;
+        }
+
+        .parameter-card{
+            padding:25px 18px;
+
+            text-align:center;
+
+            border-radius:18px;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #061827,
+                    #082238
+                );
+
+            border:1px solid #15364d;
+        }
+
+        .parameter-card strong{
+            display:block;
+
+            color:#00d9ff;
+
+            font-size:25px;
+
+            font-family:'Poppins',sans-serif;
+        }
+
+        .parameter-card h4{
+            margin-top:8px;
+
+            color:#ffffff;
+
+            font-size:13px;
+        }
+
+        .parameter-card p{
+            margin-top:7px;
+
+            color:#7f9aa9;
+
+            font-size:10px;
+
+            line-height:1.5;
+        }
+
+        /* ================= METRICS ================= */
+
+        .metrics{
+            display:grid;
+
+            grid-template-columns:
+                repeat(3,1fr);
+
+            gap:22px;
+        }
+
+        .metric-card{
+            padding:30px;
+
+            border-radius:20px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            position:relative;
+
+            overflow:hidden;
+        }
+
+        .metric-card::after{
+            content:"";
+
+            position:absolute;
+
+            width:90px;
+            height:90px;
+
+            right:-30px;
+            bottom:-35px;
+
+            border-radius:50%;
+
+            background:#00d9ff;
+
+            opacity:.05;
+
+            filter:blur(20px);
+        }
+
+        .metric-symbol{
+            color:#00d9ff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:26px;
+
+            font-weight:800;
+        }
+
+        .metric-card h3{
+            margin-top:8px;
+
+            color:#ffffff;
+
+            font-size:19px;
+        }
+
+        .metric-card p{
+            margin-top:10px;
+
+            color:#9db7c8;
+
+            font-size:12px;
+
+            line-height:1.7;
+        }
+
+        /* ================= TECHNOLOGIES ================= */
+
+        .tech-grid{
+            display:grid;
+
+            grid-template-columns:
+                repeat(6,1fr);
+
+            gap:14px;
+        }
+
+        .tech-card{
+            padding:22px 13px;
+
+            text-align:center;
+
+            border-radius:16px;
+
+            background:#061827;
+
+            border:1px solid #15364d;
+
+            transition:.3s;
+        }
+
+        .tech-card:hover{
+            transform:translateY(-5px);
+
+            border-color:
+                rgba(0,217,255,.38);
+        }
+
+        .tech-icon{
+            width:55px;
+            height:55px;
+
+            margin:auto;
+
+            display:flex;
+            align-items:center;
+            justify-content:center;
+
+            border-radius:16px;
+
+            background:
+                rgba(0,217,255,.08);
+
+            border:1px solid
+                rgba(0,217,255,.12);
+
+            font-size:24px;
+        }
+
+        .tech-card h4{
+            margin-top:12px;
+
+            color:#ffffff;
+
+            font-size:12px;
+        }
+
+        .tech-card p{
+            margin-top:5px;
+
+            color:#7895a8;
+
+            font-size:9px;
+
+            line-height:1.5;
+        }
+
+        /* ================= DISCLAIMER ================= */
+
+        .notice{
+            margin-top:55px;
+
+            padding:25px;
+
+            border-radius:18px;
+
+            background:rgba(255,193,7,.045);
+
+            border:1px solid rgba(255,193,7,.18);
+        }
+
+        .notice h3{
+            color:#ffd766;
+
+            font-size:15px;
+        }
+
+        .notice p{
+            margin-top:8px;
+
+            color:#aabcc5;
+
+            font-size:11px;
+
+            line-height:1.7;
+        }
+
+        /* ================= CTA ================= */
+
+        .cta{
+            padding-bottom:110px;
+        }
+
+        .cta-box{
+            padding:65px 35px;
+
+            text-align:center;
+
+            border-radius:27px;
+
+            background:
+                linear-gradient(
+                    120deg,
+                    #033e56,
+                    #07558e,
+                    #006d78
+                );
+
+            border:
+                1px solid
+                rgba(0,217,255,.20);
+
+            box-shadow:
+                0 30px 75px rgba(0,100,160,.18);
+        }
+
+        .cta-box h2{
+            color:#ffffff;
+
+            font-family:'Poppins',sans-serif;
+
+            font-size:35px;
+        }
+
+        .cta-box p{
+            max-width:700px;
+
+            margin:13px auto 25px;
+
+            color:#d7f6ff;
+
+            font-size:13px;
+
+            line-height:1.8;
+        }
+
+        .cta-btn{
+            display:inline-block;
+
+            padding:13px 23px;
+
+            border-radius:11px;
+
+            background:#ffffff;
+
+            color:#062033;
+
+            font-size:13px;
+
+            font-weight:800;
+        }
+
+        /* ================= FOOTER ================= */
+
+        footer{
+            padding:32px 0;
+
+            background:#010812;
+
+            text-align:center;
+
+            color:#617d90;
+
+            font-size:12px;
+        }
+
+        footer strong{
+            color:#eaf9ff;
+        }
+
+        /* ================= RESPONSIVE ================= */
+
+        @media(max-width:1050px){
+
+            .nav-links{
+                gap:18px;
+            }
+
+            .hero-grid{
+                grid-template-columns:1fr;
+            }
+
+            .feature-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .main-model{
+                grid-template-columns:1fr;
+            }
+
+            .why-grid{
+                grid-template-columns:1fr 1fr;
+            }
+
+            .architecture-flow{
+                grid-template-columns:
+                    1fr 1fr 1fr;
+            }
+
+            .arch-arrow{
+                display:none;
+            }
+
+            .parameter-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(3,1fr);
+            }
+
+        }
+
+        @media(max-width:700px){
+
+            .nav-links{
+                display:none;
+            }
+
+            .page-hero{
+                padding-top:120px;
+            }
+
+            .hero-title{
+                font-size:38px;
+            }
+
+            .hero-points{
+                grid-template-columns:1fr;
+            }
+
+            .why-grid,
+            .metrics{
+                grid-template-columns:1fr;
+            }
+
+            .architecture-flow{
+                grid-template-columns:1fr;
+            }
+
+            .parameter-grid{
+                grid-template-columns:1fr;
+            }
+
+            .tech-grid{
+                grid-template-columns:
+                    repeat(2,1fr);
+            }
+
+            .model-visual{
+                min-height:380px;
+            }
+
+            .tree{
+                width:60px;
+                height:60px;
+                font-size:23px;
+            }
+
+            .tree-1,
+            .tree-2{
+                top:30px;
+            }
+
+            .tree-3,
+            .tree-4{
+                bottom:30px;
+            }
+
+            .tree-1,
+            .tree-3{
+                left:20px;
+            }
+
+            .tree-2,
+            .tree-4{
+                right:20px;
+            }
+
+            .forest-core{
+                width:130px;
+                height:130px;
+            }
+
+            .forest-core-icon{
+                font-size:40px;
+            }
+
+            .detail-item{
+                grid-template-columns:1fr;
+                gap:5px;
+            }
+
+            .cta-box{
+                padding:45px 22px;
+            }
+
+            .cta-box h2{
+                font-size:28px;
+            }
+
+        }
+
+    
+
+/* ================= MOBILE NAVIGATION ================= */
+
+.nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(0,217,255,.30);
+    border-radius:10px;
+    background:rgba(7,27,43,.88);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .nav-toggle{
+        display:flex;
+            flex-shrink:0;
+    }
+
+    .nav-links{
+        display:none !important;
+        position:absolute;
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+        z-index:1000;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:8px;
+        background:rgba(3,17,29,.98);
+        border:1px solid rgba(0,217,255,.18);
+        border-radius:14px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
+        backdrop-filter:blur(16px);
+    }
+
+    .nav-links.open{
+        display:flex !important;
+    }
+
+    .nav-links a{
+        display:block;
+        width:100%;
+        padding:12px 14px;
+        border-radius:9px;
+    }
+
+    .nav-links a:hover{
+        background:rgba(0,217,255,.08);
+    }
+
+    .nav-links a::after{
+        display:none !important;
+    }
+
+    .nav-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar">
+
+    <div class="nav-inner">
+
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                📈
+            </div>
+
+            StockAI
+
+        </a>
+
+
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+
+        <div class="nav-links">
+            <a href="index.html">
+    Home
+</a>
+
+            <a href="about.html">
+                About
+            </a>
+
+            <a href="features.html">
+                Features
+            </a>
+
+            <a href="models.html" class="active">
+                Models
+            </a>
+
+            <a href="workflow.html">
+                Workflow
+            </a>
+
+        </div>
+
+
+        <a href="index.html#project" class="nav-btn">
+            Try Prediction
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HERO ================= -->
+
+<section class="page-hero">
+
+    <div class="container">
+
+        <div class="hero-grid">
+
+
+            <div>
+
+                <div class="badge">
+
+                    <span class="badge-dot"></span>
+
+                    MACHINE LEARNING MODELS
+
+                </div>
+
+
+                <h1 class="hero-title">
+
+                    The Intelligence
+                    Behind
+
+                    <span class="gradient-text">
+                        StockAI
+                    </span>
+
+                </h1>
+
+
+                <p class="hero-description">
+
+                    StockAI uses a trained
+                    <strong style="color:#ffffff;">
+                        Random Forest Regression
+                    </strong>
+                    model as the main machine learning
+                    engine.
+
+                    The model learns relationships between
+                    historical stock market features and the
+                    next closing price, allowing the backend
+                    to generate a prediction for the selected
+                    stock data.
+
+                </p>
+
+
+                <div class="hero-points">
+
+                    <div class="hero-point">
+                        <span>✓</span>
+                        Ensemble Learning
+                    </div>
+
+                    <div class="hero-point">
+                        <span>✓</span>
+                        Regression Prediction
+                    </div>
+
+                    <div class="hero-point">
+                        <span>✓</span>
+                        200 Decision Trees
+                    </div>
+
+                    <div class="hero-point">
+                        <span>✓</span>
+                        Historical Market Features
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MODEL VISUAL -->
+
+            <div class="model-visual">
+
+                <div class="visual-grid"></div>
+
+                <div class="ring ring-one"></div>
+
+                <div class="ring ring-two"></div>
+
+                <div class="ring ring-three"></div>
+
+
+                <div class="connect one"></div>
+                <div class="connect two"></div>
+                <div class="connect three"></div>
+                <div class="connect four"></div>
+
+
+                <div class="tree tree-1">
+                    🌲
+                </div>
+
+                <div class="tree tree-2">
+                    🌳
+                </div>
+
+                <div class="tree tree-3">
+                    🌲
+                </div>
+
+                <div class="tree tree-4">
+                    🌳
+                </div>
+
+
+                <div class="forest-core">
+
+                    <div class="forest-core-icon">
+                        🧠
+                    </div>
+
+                    <strong>
+                        RANDOM FOREST
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MAIN MODEL ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                PRIMARY MODEL
+            </span>
+
+            <h2>
+                Random Forest Regression
+            </h2>
+
+            <p>
+                Random Forest Regression is the main model used
+                by this project to estimate the next stock closing
+                price.
+            </p>
+
+        </div>
+
+
+        <div class="main-model">
+
+
+            <div class="model-profile">
+
+                <div class="model-logo">
+                    🌲
+                </div>
+
+                <h3>
+                    Random Forest Regressor
+                </h3>
+
+                <p>
+
+                    Random Forest is an ensemble machine learning
+                    algorithm that combines many decision trees.
+                    Each tree learns patterns from training data,
+                    and their outputs are combined to produce
+                    a regression result.
+
+                </p>
+
+
+                <div class="model-tags">
+
+                    <span class="model-tag">
+                        Supervised Learning
+                    </span>
+
+                    <span class="model-tag">
+                        Regression
+                    </span>
+
+                    <span class="model-tag">
+                        Ensemble Model
+                    </span>
+
+                    <span class="model-tag">
+                        Decision Trees
+                    </span>
+
+                    <span class="model-tag">
+                        Python
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="model-details">
+
+                <div class="detail-title">
+                    MODEL CONFIGURATION
+                </div>
+
+
+                <div class="detail-list">
+
+
+                    <div class="detail-item">
+
+                        <strong>
+                            Number of Trees
+                        </strong>
+
+                        <p>
+                            The project trains the Random Forest
+                            using 200 decision trees.
+                        </p>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <strong>
+                            Maximum Depth
+                        </strong>
+
+                        <p>
+                            Maximum tree depth is set to 12 to
+                            control the complexity of individual
+                            trees.
+                        </p>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <strong>
+                            Minimum Split
+                        </strong>
+
+                        <p>
+                            A minimum of 5 samples is required
+                            for a node to be split.
+                        </p>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <strong>
+                            Random State
+                        </strong>
+
+                        <p>
+                            Random state 42 is used so that the
+                            training process can be reproduced.
+                        </p>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <strong>
+                            Target
+                        </strong>
+
+                        <p>
+                            The target variable is the next
+                            trading day's closing price.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= WHY RANDOM FOREST ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MODEL ADVANTAGES
+            </span>
+
+            <h2>
+                Why Random Forest?
+            </h2>
+
+            <p>
+                The project uses Random Forest because the
+                ensemble structure can represent complex
+                relationships between multiple input features.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🌲
+                </div>
+
+                <h3>
+                    Multiple Trees
+                </h3>
+
+                <p>
+                    Instead of depending on a single decision tree,
+                    Random Forest combines many trees to generate
+                    a more stable ensemble prediction.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🧠
+                </div>
+
+                <h3>
+                    Pattern Learning
+                </h3>
+
+                <p>
+                    The model learns relationships between market
+                    variables and the target price during training.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    📊
+                </div>
+
+                <h3>
+                    Multiple Inputs
+                </h3>
+
+                <p>
+                    The model can use Open, High, Low, Close,
+                    Volume and calculated indicators together.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Inference
+                </h3>
+
+                <p>
+                    After training, the saved model can be loaded
+                    by Flask and used to generate predictions
+                    through the API.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🔄
+                </div>
+
+                <h3>
+                    Reusable Model
+                </h3>
+
+                <p>
+                    The trained model is saved as
+                    stock_model.pkl and can be loaded whenever
+                    the application receives a prediction request.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Regression Output
+                </h3>
+
+                <p>
+                    The model produces a numerical prediction,
+                    which in this project represents the expected
+                    next closing price.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ARCHITECTURE ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MODEL ARCHITECTURE
+            </span>
+
+            <h2>
+                From Market Data To Prediction
+            </h2>
+
+            <p>
+                The complete machine learning pipeline connects
+                market data, feature engineering, the trained
+                Random Forest model and the final prediction.
+            </p>
+
+        </div>
+
+
+        <div class="architecture">
+
+
+            <div class="architecture-flow">
+
+
+                <div class="arch-box">
+
+                    <div class="arch-icon">
+                        📡
+                    </div>
+
+                    <h4>
+                        Market Data
+                    </h4>
+
+                    <p>
+                        Historical stock
+                        information
+                    </p>
+
+                </div>
+
+
+                <div class="arch-arrow">
+                    →
+                </div>
+
+
+                <div class="arch-box">
+
+                    <div class="arch-icon">
+                        ⚙️
+                    </div>
+
+                    <h4>
+                        Feature Engineering
+                    </h4>
+
+                    <p>
+                        Indicators and
+                        calculated features
+                    </p>
+
+                </div>
+
+
+                <div class="arch-arrow">
+                    →
+                </div>
+
+
+                <div class="arch-box">
+
+                    <div class="arch-icon">
+                        🌲
+                    </div>
+
+                    <h4>
+                        Random Forest
+                    </h4>
+
+                    <p>
+                        200 decision
+                        trees
+                    </p>
+
+                </div>
+
+
+                <div class="arch-arrow">
+                    →
+                </div>
+
+
+                <div class="arch-box">
+
+                    <div class="arch-icon">
+                        💡
+                    </div>
+
+                    <h4>
+                        Prediction
+                    </h4>
+
+                    <p>
+                        Predicted next
+                        closing price
+                    </p>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= MODEL PARAMETERS ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                TRAINING CONFIGURATION
+            </span>
+
+            <h2>
+                Model Parameters
+            </h2>
+
+            <p>
+                These are the main configuration values used
+                by the Random Forest model in the project.
+            </p>
+
+        </div>
+
+
+        <div class="parameter-grid">
+
+
+            <div class="parameter-card">
+
+                <strong>
+                    200
+                </strong>
+
+                <h4>
+                    Estimators
+                </h4>
+
+                <p>
+                    Number of decision trees
+                    in the forest.
+                </p>
+
+            </div>
+
+
+            <div class="parameter-card">
+
+                <strong>
+                    12
+                </strong>
+
+                <h4>
+                    Max Depth
+                </h4>
+
+                <p>
+                    Maximum depth allowed
+                    for each tree.
+                </p>
+
+            </div>
+
+
+            <div class="parameter-card">
+
+                <strong>
+                    5
+                </strong>
+
+                <h4>
+                    Min Split
+                </h4>
+
+                <p>
+                    Minimum samples required
+                    to split a node.
+                </p>
+
+            </div>
+
+
+            <div class="parameter-card">
+
+                <strong>
+                    42
+                </strong>
+
+                <h4>
+                    Random State
+                </h4>
+
+                <p>
+                    Fixed seed for reproducible
+                    training results.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= INPUT FEATURES ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MODEL INPUTS
+            </span>
+
+            <h2>
+                Features Given To The Model
+            </h2>
+
+            <p>
+                Before prediction, the backend prepares the latest
+                market information into the same feature structure
+                used during model training.
+            </p>
+
+        </div>
+
+
+        <div class="metrics">
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    O
+                </div>
+
+                <h3>
+                    Open
+                </h3>
+
+                <p>
+                    Opening price of the stock
+                    during the trading session.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    H
+                </div>
+
+                <h3>
+                    High
+                </h3>
+
+                <p>
+                    Highest market price recorded
+                    during the trading day.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    L
+                </div>
+
+                <h3>
+                    Low
+                </h3>
+
+                <p>
+                    Lowest market price recorded
+                    during the trading day.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    C
+                </div>
+
+                <h3>
+                    Close
+                </h3>
+
+                <p>
+                    Closing price used as an important
+                    prediction feature.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    V
+                </div>
+
+                <h3>
+                    Volume
+                </h3>
+
+                <p>
+                    Trading activity represented by
+                    the number of shares traded.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    PC
+                </div>
+
+                <h3>
+                    Previous Close
+                </h3>
+
+                <p>
+                    Previous trading day's closing
+                    price.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    R
+                </div>
+
+                <h3>
+                    Daily Return
+                </h3>
+
+                <p>
+                    Relative daily change calculated
+                    from current and previous close.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    MA5
+                </div>
+
+                <h3>
+                    Moving Average 5
+                </h3>
+
+                <p>
+                    Five-day moving average of
+                    the closing price.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    MA10
+                </div>
+
+                <h3>
+                    Moving Average 10
+                </h3>
+
+                <p>
+                    Ten-day moving average of
+                    the closing price.
+                </p>
+
+            </div>
+
+
+            <div class="metric-card">
+
+                <div class="metric-symbol">
+                    PR
+                </div>
+
+                <h3>
+                    Price Range
+                </h3>
+
+                <p>
+                    Difference between the
+                    daily high and low price.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= EVALUATION METRICS ================= -->
+
+<section class="section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                MODEL EVALUATION
+            </span>
+
+            <h2>
+                Measuring Model Performance
+            </h2>
+
+            <p>
+                Model performance can be evaluated by comparing
+                predicted values with the actual target values.
+            </p>
+
+        </div>
+
+
+        <div class="why-grid">
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    📏
+                </div>
+
+                <h3>
+                    MAE
+                </h3>
+
+                <p>
+                    Mean Absolute Error represents the average
+                    absolute difference between actual and
+                    predicted values. Lower error indicates
+                    smaller average prediction differences.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    🧮
+                </div>
+
+                <h3>
+                    RMSE
+                </h3>
+
+                <p>
+                    Root Mean Square Error measures prediction
+                    error while giving greater influence to
+                    larger errors.
+                </p>
+
+            </div>
+
+
+            <div class="why-card">
+
+                <div class="why-icon">
+                    📐
+                </div>
+
+                <h3>
+                    R² Score
+                </h3>
+
+                <p>
+                    The R² score indicates how much of the
+                    variation in the target values is explained
+                    by the regression model.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= TECHNOLOGY ================= -->
+
+<section class="section dark-section">
+
+    <div class="container">
+
+
+        <div class="section-heading">
+
+            <span>
+                TECHNOLOGY STACK
+            </span>
+
+            <h2>
+                Technologies Supporting The Model
+            </h2>
+
+            <p>
+                Several technologies work together to train,
+                store and serve the machine learning model.
+            </p>
+
+        </div>
+
+
+        <div class="tech-grid">
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    🐍
+                </div>
+
+                <h4>
+                    Python
+                </h4>
+
+                <p>
+                    Main programming language
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    🌲
+                </div>
+
+                <h4>
+                    Scikit-Learn
+                </h4>
+
+                <p>
+                    Machine learning library
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    🐼
+                </div>
+
+                <h4>
+                    Pandas
+                </h4>
+
+                <p>
+                    Data manipulation
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    🔢
+                </div>
+
+                <h4>
+                    NumPy
+                </h4>
+
+                <p>
+                    Numerical processing
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    📡
+                </div>
+
+                <h4>
+                    yFinance
+                </h4>
+
+                <p>
+                    Market data retrieval
+                </p>
+
+            </div>
+
+
+            <div class="tech-card">
+
+                <div class="tech-icon">
+                    🔥
+                </div>
+
+                <h4>
+                    Flask
+                </h4>
+
+                <p>
+                    Prediction API backend
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="notice">
+
+            <h3>
+                ⚠️ Important Information
+            </h3>
+
+            <p>
+                The Random Forest model in this project is a
+                machine learning demonstration trained using
+                historical stock market data. Stock prices are
+                influenced by many unpredictable factors, so
+                model predictions should not be interpreted as
+                guaranteed future market outcomes or financial advice.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CTA ================= -->
+
+<section class="section cta">
+
+    <div class="container">
+
+        <div class="cta-box">
+
+            <h2>
+                Explore The Complete StockAI System
+            </h2>
+
+            <p>
+                Learn how the model connects with the Flask backend,
+                historical market data and the StockAI web interface
+                to generate prediction results.
+            </p>
+
+            <a
+                href="index.html#project"
+                class="cta-btn">
+
+                🚀 Try Stock Prediction
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer>
+
+    <div class="container">
+
+        <p>
+
+            © 2026 Stock Prediction AI |
+            Developed with ❤️ using
+
+            <strong>
+                Python, Flask & Machine Learning
+            </strong>
+
+        </p>
+
+    </div>
+
+</footer>
+
+
+
+
+<script>
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if(navToggle && navLinks){
+
+    navToggle.addEventListener("click", function(){
+
+        const isOpen = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+        navToggle.innerHTML = isOpen ? "✕" : "☰";
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link){
+
+        link.addEventListener("click", function(){
+
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.innerHTML = "☰";
+
+        });
+
+    });
+}
+
+</script>
+
+</body>
+</html>

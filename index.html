@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Stock Prediction AI | Machine Learning</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700;800&display=swap"
+rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   BASIC
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#020b18;
+    color:#e6f7ff;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:#00d9ff;
+
+    opacity:.08;
+
+    filter:blur(120px);
+
+    border-radius:50%;
+
+    top:-200px;
+    left:-200px;
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+body::after{
+    content:"";
+
+    position:fixed;
+
+    width:500px;
+    height:500px;
+
+    background:#087cff;
+
+    opacity:.10;
+
+    filter:blur(120px);
+
+    border-radius:50%;
+
+    bottom:-200px;
+    right:-200px;
+
+    pointer-events:none;
+
+    z-index:-1;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button,
+input{
+    font-family:inherit;
+}
+
+.container{
+    width:90%;
+    max-width:1200px;
+    margin:auto;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+.navbar{
+    position:fixed;
+
+    top:0;
+    left:0;
+
+    width:100%;
+    height:75px;
+
+    display:flex;
+    align-items:center;
+
+    z-index:1000;
+
+    background:rgba(2,11,24,.92);
+
+    backdrop-filter:blur(18px);
+
+    border-bottom:
+        1px solid
+        rgba(0,217,255,.16);
+
+    transition:.3s;
+}
+
+.navbar.scrolled{
+    box-shadow:
+        0 10px 35px
+        rgba(0,0,0,.30);
+}
+
+.nav-inner{
+    width:90%;
+    max-width:1200px;
+
+    margin:auto;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.logo{
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:21px;
+
+    font-weight:800;
+
+    color:#ffffff;
+}
+
+.logo-icon{
+    width:38px;
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #087cff
+        );
+
+    color:#ffffff;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,217,255,.25);
+}
+
+.nav-links{
+    display:flex;
+
+    align-items:center;
+
+    gap:30px;
+}
+
+.nav-links a{
+    position:relative;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    color:#9db7c8;
+
+    transition:.3s;
+}
+
+.nav-links a::after{
+    content:"";
+
+    position:absolute;
+
+    width:0;
+    height:2px;
+
+    background:#00d9ff;
+
+    left:0;
+    bottom:-8px;
+
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:#00d9ff;
+}
+
+.nav-links a:hover::after{
+    width:100%;
+}
+
+.nav-links a.active{
+    color:#00d9ff;
+}
+
+.nav-links a.active::after{
+    width:100%;
+}
+
+.nav-btn{
+    display:inline-flex;
+
+    align-items:center;
+    justify-content:center;
+
+    padding:11px 20px;
+
+    border-radius:10px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #087cff
+        );
+
+    color:#ffffff;
+
+    font-size:13px;
+
+    font-weight:700;
+
+    box-shadow:
+        0 8px 20px
+        rgba(0,217,255,.22);
+
+    transition:.3s;
+}
+
+.nav-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 12px 28px
+        rgba(0,217,255,.30);
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+
+    padding:
+        150px
+        0
+        80px;
+
+    display:flex;
+
+    align-items:center;
+}
+
+.hero-grid{
+    display:grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap:70px;
+
+    align-items:center;
+}
+
+.badge{
+    display:inline-flex;
+
+    align-items:center;
+
+    gap:9px;
+
+    padding:9px 15px;
+
+    border-radius:50px;
+
+    color:#00d9ff;
+
+    background:
+        rgba(0,217,255,.08);
+
+    border:
+        1px solid
+        rgba(0,217,255,.20);
+
+    font-size:11px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+}
+
+.badge-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#00e6a8;
+
+    box-shadow:
+        0 0 0 5px
+        rgba(0,230,168,.10);
+}
+
+.hero h1{
+    margin-top:22px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:58px;
+
+    line-height:1.08;
+
+    color:#f5fbff;
+
+    letter-spacing:-2px;
+}
+
+.gradient-text{
+    background:
+        linear-gradient(
+            90deg,
+            #00d9ff,
+            #087cff,
+            #00e6a8
+        );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    background-clip:text;
+}
+
+.hero-description{
+    margin-top:25px;
+
+    max-width:540px;
+
+    font-size:16px;
+
+    line-height:1.8;
+
+    color:#9db7c8;
+}
+
+.hero-buttons{
+    display:flex;
+
+    gap:15px;
+
+    margin-top:32px;
+}
+
+.primary-btn,
+.secondary-btn{
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:14px 24px;
+
+    border-radius:11px;
+
+    font-size:14px;
+
+    font-weight:700;
+
+    transition:.3s;
+}
+
+.primary-btn{
+    color:#ffffff;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #087cff
+        );
+
+    box-shadow:
+        0 12px 28px
+        rgba(0,217,255,.20);
+}
+
+.primary-btn:hover{
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 18px 35px
+        rgba(0,217,255,.28);
+}
+
+.secondary-btn{
+    color:#d9f3ff;
+
+    background:#071827;
+
+    border:
+        1px solid
+        #17354a;
+}
+
+.secondary-btn:hover{
+    color:#00d9ff;
+
+    border-color:#00d9ff;
+}
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+
+.dashboard{
+    position:relative;
+
+    padding:28px;
+
+    border-radius:24px;
+
+    background:
+        rgba(5,22,38,.88);
+
+    border:
+        1px solid
+        rgba(0,217,255,.16);
+
+    box-shadow:
+        0 35px 80px
+        rgba(0,0,0,.35);
+
+    overflow:hidden;
+}
+
+.dashboard::before{
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+    height:180px;
+
+    background:#00d9ff;
+
+    opacity:.07;
+
+    filter:blur(60px);
+
+    top:-80px;
+    right:-50px;
+}
+
+.dashboard-top{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+}
+
+.dashboard-label{
+    font-size:11px;
+
+    color:#7895a8;
+
+    font-weight:600;
+}
+
+.stock-name{
+    margin-top:5px;
+
+    font-size:20px;
+
+    font-weight:800;
+
+    color:#f5fbff;
+}
+
+.live{
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    color:#00e6a8;
+
+    font-size:11px;
+
+    font-weight:700;
+}
+
+.live-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#00e6a8;
+}
+
+.stock-price{
+    margin-top:22px;
+
+    display:flex;
+
+    align-items:end;
+
+    gap:12px;
+}
+
+.stock-price strong{
+    font-size:36px;
+
+    color:#ffffff;
+}
+
+.stock-price span{
+    font-size:13px;
+
+    color:#00e6a8;
+
+    margin-bottom:6px;
+
+    font-weight:700;
+}
+
+.chart{
+    height:220px;
+
+    margin-top:25px;
+
+    border-radius:15px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(0,217,255,.07),
+            rgba(8,124,255,.04)
+        );
+
+    overflow:hidden;
+}
+
+.chart svg{
+    width:100%;
+    height:100%;
+}
+
+.grid{
+    stroke:
+        rgba(95,160,190,.13);
+
+    stroke-width:1;
+}
+
+.chart-line{
+    stroke:#00d9ff;
+
+    stroke-width:4;
+
+    fill:none;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+
+    filter:
+        drop-shadow(
+            0 0 8px
+            rgba(0,217,255,.35)
+        );
+}
+
+.chart-point{
+    fill:#00e6a8;
+
+    stroke:#061827;
+
+    stroke-width:4;
+}
+
+.dashboard-mini{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:16px;
+}
+
+.mini{
+    padding:15px;
+
+    border-radius:12px;
+
+    background:
+        rgba(7,24,39,.95);
+
+    border:
+        1px solid
+        #17354a;
+}
+
+.mini small{
+    display:block;
+
+    color:#7895a8;
+
+    font-size:10px;
+
+    margin-bottom:5px;
+}
+
+.mini strong{
+    color:#eaf9ff;
+
+    font-size:14px;
+}
+
+
+/* =========================================================
+   FLOAT CARDS
+========================================================= */
+
+.float-card{
+    position:absolute;
+
+    padding:13px 16px;
+
+    border-radius:12px;
+
+    background:
+        rgba(5,22,38,.94);
+
+    color:#00d9ff;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    box-shadow:
+        0 18px 35px
+        rgba(0,0,0,.35);
+
+    border:
+        1px solid
+        rgba(0,217,255,.12);
+}
+
+.float-card.one{
+    top:80px;
+    left:-30px;
+
+    color:#00d9ff;
+}
+
+.float-card.two{
+    right:-30px;
+    bottom:100px;
+
+    color:#00e6a8;
+}
+
+.coin{
+    position:absolute;
+
+    width:45px;
+    height:45px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #087cff
+        );
+
+    color:#ffffff;
+
+    font-weight:800;
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,217,255,.25);
+}
+
+.coin1{
+    top:30px;
+    right:80px;
+}
+
+.coin2{
+    background:
+        linear-gradient(
+            135deg,
+            #00e6a8,
+            #087cff
+        );
+
+    bottom:35px;
+    left:30px;
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    padding:30px 0;
+
+    background:#041322;
+
+    border-top:
+        1px solid
+        #123149;
+
+    border-bottom:
+        1px solid
+        #123149;
+}
+
+.stats-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:20px;
+}
+
+.stat{
+    text-align:center;
+}
+
+.counter{
+    font-size:32px;
+
+    font-weight:800;
+
+    font-family:'Poppins',sans-serif;
+
+    background:
+        linear-gradient(
+            90deg,
+            #00d9ff,
+            #087cff,
+            #00e6a8
+        );
+
+    -webkit-background-clip:text;
+
+    -webkit-text-fill-color:transparent;
+
+    background-clip:text;
+}
+
+.stat p{
+    margin-top:5px;
+
+    color:#7895a8;
+
+    font-size:12px;
+}
+
+
+/* =========================================================
+   SECTION
+========================================================= */
+
+section{
+    padding:100px 0;
+}
+
+.section-heading{
+    text-align:center;
+
+    max-width:720px;
+
+    margin:
+        0 auto
+        55px;
+}
+
+.section-heading span{
+    color:#00d9ff;
+
+    font-size:12px;
+
+    font-weight:800;
+
+    letter-spacing:2px;
+}
+
+.section-heading h2{
+    margin-top:12px;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:38px;
+
+    color:#f5fbff;
+}
+
+.section-heading p{
+    margin-top:14px;
+
+    color:#9db7c8;
+
+    line-height:1.7;
+}
+
+
+/* =========================================================
+   REAL TIME PREDICTION
+========================================================= */
+
+#project{
+    scroll-margin-top:90px;
+}
+
+.realtime-box{
+    max-width:950px;
+
+    margin:0 auto;
+
+    padding:35px;
+
+    border-radius:24px;
+
+    background:
+        rgba(5,22,38,.90);
+
+    border:
+        1px solid
+        rgba(0,217,255,.20);
+
+    box-shadow:
+        0 20px 60px
+        rgba(0,0,0,.35);
+}
+
+.realtime-header{
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+}
+
+.realtime-title{
+    color:#f5fbff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:25px;
+}
+
+.realtime-subtitle{
+    margin-top:6px;
+
+    color:#9db7c8;
+
+    font-size:13px;
+}
+
+.rt-form{
+    display:flex;
+
+    gap:10px;
+
+    margin-top:25px;
+}
+
+.rt-input{
+    flex:1;
+
+    padding:14px 16px;
+
+    border-radius:11px;
+
+    background:#071827;
+
+    color:#e6f7ff;
+
+    border:
+        1px solid
+        #173c55;
+
+    outline:none;
+
+    font-size:14px;
+}
+
+.rt-input::placeholder{
+    color:#68879a;
+}
+
+.rt-input:focus{
+    border-color:#00d9ff;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(0,217,255,.09);
+}
+
+.rt-btn{
+    padding:14px 22px;
+
+    border:none;
+
+    border-radius:11px;
+
+    color:#ffffff;
+
+    font-weight:700;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            135deg,
+            #00d9ff,
+            #087cff
+        );
+
+    transition:.3s;
+}
+
+.rt-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,217,255,.20);
+}
+
+.rt-btn:disabled{
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    transform:none;
+}
+
+.rt-status{
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    margin-top:16px;
+
+    color:#8faabc;
+
+    font-size:12px;
+}
+
+.rt-status-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:#557487;
+
+    transition:.3s;
+}
+
+.rt-status-dot.active{
+    background:#00e6a8;
+
+    box-shadow:
+        0 0 0 5px
+        rgba(0,230,168,.10);
+}
+
+.rt-grid{
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:12px;
+
+    margin-top:25px;
+}
+
+.rt-card{
+    padding:18px;
+
+    border-radius:13px;
+
+    background:#071827;
+
+    border:
+        1px solid
+        #17364d;
+}
+
+.rt-card small{
+    display:block;
+
+    color:#7895a8;
+
+    font-size:10px;
+
+    margin-bottom:7px;
+}
+
+.rt-card strong{
+    color:#f5fbff;
+
+    font-size:16px;
+}
+
+.rt-card .positive{
+    color:#00e6a8;
+}
+
+.rt-card .negative{
+    color:#ff6570;
+}
+
+.prediction-card{
+    margin-top:15px;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(0,217,255,.08),
+            rgba(0,124,255,.08)
+        );
+
+    border:
+        1px solid
+        rgba(0,217,255,.20);
+}
+
+.prediction-label{
+    color:#7895a8;
+
+    font-size:11px;
+}
+
+.prediction-value{
+    margin-top:6px;
+
+    color:#ffffff;
+
+    font-size:32px;
+
+    font-weight:800;
+}
+
+.prediction-badge{
+    padding:9px 15px;
+
+    border-radius:50px;
+
+    background:
+        rgba(0,230,168,.10);
+
+    color:#00e6a8;
+
+    font-size:12px;
+
+    font-weight:800;
+}
+
+.rt-note{
+    margin-top:15px;
+
+    color:#7895a8;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta-box{
+    padding:60px;
+
+    border-radius:28px;
+
+    text-align:center;
+
+    background:
+        linear-gradient(
+            120deg,
+            #034b68,
+            #0755a0,
+            #007c8f
+        );
+
+    box-shadow:
+        0 30px 70px
+        rgba(0,120,180,.22);
+}
+
+.cta-box h2{
+    color:#ffffff;
+
+    font-family:'Poppins',sans-serif;
+
+    font-size:38px;
+}
+
+.cta-box p{
+    margin:12px auto 25px;
+
+    max-width:600px;
+
+    color:#d7f6ff;
+
+    line-height:1.7;
+}
+
+.cta-btn{
+    display:inline-block;
+
+    padding:13px 24px;
+
+    border-radius:11px;
+
+    color:#062033;
+
+    background:#ffffff;
+
+    font-weight:800;
+
+    transition:.3s;
+}
+
+.cta-btn:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,0,0,.18);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    padding:30px 0;
+
+    text-align:center;
+
+    background:#010812;
+
+    color:#617d90;
+
+    font-size:12px;
+}
+
+footer strong{
+    color:#eaf9ff;
+}
+
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+.mouse-glow{
+    position:fixed;
+
+    width:300px;
+    height:300px;
+
+    border-radius:50%;
+
+    pointer-events:none;
+
+    transform:
+        translate(-50%,-50%);
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(0,217,255,.12),
+            transparent 70%
+        );
+
+    z-index:-1;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .hero-grid{
+        grid-template-columns:1fr;
+    }
+
+    .hero h1{
+        font-size:45px;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .rt-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+}
+
+@media(max-width:650px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero h1{
+        font-size:38px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .stats-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .dashboard-mini{
+        grid-template-columns:1fr;
+    }
+
+    .rt-form{
+        flex-direction:column;
+    }
+
+    .rt-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .prediction-card{
+        flex-direction:column;
+
+        align-items:flex-start;
+    }
+
+    .cta-box{
+        padding:40px 20px;
+    }
+
+    .cta-box h2{
+        font-size:30px;
+    }
+
+}
+
+
+
+/* ================= MOBILE NAVIGATION ================= */
+
+.nav-toggle{
+    display:none;
+    align-items:center;
+    justify-content:center;
+    width:40px;
+    height:40px;
+    border:1px solid rgba(0,217,255,.30);
+    border-radius:10px;
+    background:rgba(7,27,43,.88);
+    color:#ffffff;
+    font-size:22px;
+    line-height:1;
+    cursor:pointer;
+}
+
+@media(max-width:750px){
+
+    .nav-inner{
+        position:relative;
+    }
+
+    .nav-toggle{
+        display:flex;
+            flex-shrink:0;
+    }
+
+    .nav-links{
+        display:none !important;
+        position:absolute;
+        top:calc(100% + 10px);
+        left:0;
+        right:0;
+        z-index:1000;
+        flex-direction:column;
+        align-items:stretch;
+        gap:0;
+        padding:8px;
+        background:rgba(3,17,29,.98);
+        border:1px solid rgba(0,217,255,.18);
+        border-radius:14px;
+        box-shadow:0 18px 45px rgba(0,0,0,.35);
+        backdrop-filter:blur(16px);
+    }
+
+    .nav-links.open{
+        display:flex !important;
+    }
+
+    .nav-links a{
+        display:block;
+        width:100%;
+        padding:12px 14px;
+        border-radius:9px;
+    }
+
+    .nav-links a:hover{
+        background:rgba(0,217,255,.08);
+    }
+
+    .nav-links a::after{
+        display:none !important;
+    }
+
+    .nav-btn{
+        flex-shrink:0;
+        white-space:nowrap;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     MOUSE GLOW
+========================================================= -->
+
+<div
+class="mouse-glow"
+id="mouseGlow">
+</div>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<nav
+class="navbar"
+id="navbar">
+
+    <div class="nav-inner">
+
+
+        <a
+        href="./index.html"
+        class="logo">
+
+            <div class="logo-icon">
+                📈
+            </div>
+
+            StockAI
+
+        </a>
+
+
+        <button class="nav-toggle" type="button" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+
+        <div class="nav-links">
+
+
+   <a href="./index.html">
+    Home
+</a>
+
+
+            <a href="./about.html">
+
+                About
+
+            </a>
+
+
+            <a href="./features.html">
+
+                Features
+
+            </a>
+
+
+            <a href="./models.html">
+
+                Models
+
+            </a>
+
+
+            <a href="./workflow.html">
+
+                Workflow
+
+            </a>
+
+
+        </div>
+
+
+        <a href="./index.html#project" class="nav-btn">
+    Try Prediction
+</a>
+
+
+    </div>
+
+</nav>
+
+
+<!-- =========================================================
+     HOME HERO
+========================================================= -->
+
+<section
+class="hero"
+id="home">
+
+
+<div class="container">
+
+
+<div class="hero-grid">
+
+
+<!-- LEFT -->
+
+<div>
+
+
+<div class="badge">
+
+<span class="badge-dot"></span>
+
+AI & MACHINE LEARNING PROJECT
+
+</div>
+
+
+<h1>
+
+Predict The Market
+
+<br>
+
+With
+
+<span class="gradient-text">
+
+Intelligence
+
+</span>
+
+</h1>
+
+
+<p class="hero-description">
+
+An intelligent stock prediction system powered by
+Artificial Intelligence and Machine Learning.
+Analyze market data, discover patterns and predict
+future stock prices using advanced algorithms.
+
+</p>
+
+
+<div class="hero-buttons">
+
+
+<a
+href="./index.html#project"
+class="primary-btn">
+
+🚀 Start Prediction
+
+</a>
+
+
+<a
+href="./about.html"
+class="secondary-btn">
+
+Learn More →
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+<!-- RIGHT DASHBOARD -->
+
+<div>
+
+
+<div class="dashboard">
+
+
+<div class="dashboard-top">
+
+
+<div>
+
+
+<div class="dashboard-label">
+
+LIVE MARKET
+
+</div>
+
+
+<div class="stock-name">
+
+AAPL · Apple Inc.
+
+</div>
+
+
+</div>
+
+
+<div class="live">
+
+<span class="live-dot"></span>
+
+LIVE
+
+</div>
+
+
+</div>
+
+
+<div class="stock-price">
+
+
+<strong>
+
+₹2,486.40
+
+</strong>
+
+
+<span>
+
++2.84%
+
+</span>
+
+
+</div>
+
+
+<!-- CHART -->
+
+<div class="chart">
+
+
+<svg
+viewBox="0 0 600 220"
+preserveAspectRatio="none">
+
+
+<defs>
+
+
+<linearGradient
+id="chartArea"
+x1="0"
+y1="0"
+x2="0"
+y2="1">
+
+
+<stop
+offset="0%"
+stop-color="#00d9ff"
+stop-opacity=".22">
+</stop>
+
+
+<stop
+offset="100%"
+stop-color="#00d9ff"
+stop-opacity="0">
+</stop>
+
+
+</linearGradient>
+
+
+</defs>
+
+
+<path
+class="grid"
+d="
+M0 40 H600
+M0 90 H600
+M0 140 H600
+M0 190 H600
+">
+</path>
+
+
+<path
+d="
+M0 170
+C35 155 55 165 80 145
+C105 125 120 145 145 130
+C170 115 190 135 215 105
+C240 75 255 120 280 95
+C305 70 325 90 350 65
+C375 40 395 75 420 55
+C445 35 470 60 495 45
+C520 30 550 50 600 20
+L600 220
+L0 220
+Z
+"
+fill="url(#chartArea)">
+</path>
+
+
+<path
+class="chart-line"
+d="
+M0 170
+C35 155 55 165 80 145
+C105 125 120 145 145 130
+C170 115 190 135 215 105
+C240 75 255 120 280 95
+C305 70 325 90 350 65
+C375 40 395 75 420 55
+C445 35 470 60 495 45
+C520 30 550 50 600 20
+">
+</path>
+
+
+<circle
+class="chart-point"
+cx="600"
+cy="20"
+r="6">
+</circle>
+
+
+</svg>
+
+
+</div>
+
+
+<!-- MINI CARDS -->
+
+<div class="dashboard-mini">
+
+
+<div class="mini">
+
+<small>
+
+OPEN
+
+</small>
+
+<strong>
+
+₹2,412.20
+
+</strong>
+
+</div>
+
+
+<div class="mini">
+
+<small>
+
+HIGH
+
+</small>
+
+<strong>
+
+₹2,501.80
+
+</strong>
+
+</div>
+
+
+<div class="mini">
+
+<small>
+
+LOW
+
+</small>
+
+<strong>
+
+₹2,398.50
+
+</strong>
+
+</div>
+
+
+</div>
+
+
+<!-- FLOATING VISUALS -->
+
+<div
+class="float-card one">
+
+🤖 AI Prediction
+
+</div>
+
+
+<div
+class="float-card two">
+
+📊 +18.6% Growth
+
+</div>
+
+
+<div
+class="coin coin1">
+
+$
+
+</div>
+
+
+<div
+class="coin coin2">
+
+₿
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<!-- =========================================================
+     STATS
+========================================================= -->
+
+<div class="stats">
+
+
+<div class="container">
+
+
+<div class="stats-grid">
+
+
+<div class="stat">
+
+
+<div
+class="counter"
+data-target="95">
+
+0
+
+</div>
+
+
+<p>
+
+Prediction Accuracy %
+
+</p>
+
+
+</div>
+
+
+<div class="stat">
+
+
+<div
+class="counter"
+data-target="10">
+
+0
+
+</div>
+
+
+<p>
+
+ML Features
+
+</p>
+
+
+</div>
+
+
+<div class="stat">
+
+
+<div
+class="counter"
+data-target="200">
+
+0
+
+</div>
+
+
+<p>
+
+Decision Trees
+
+</p>
+
+
+</div>
+
+
+<div class="stat">
+
+
+<div
+class="counter"
+data-target="5">
+
+0
+
+</div>
+
+
+<p>
+
+Years Data
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<!-- =========================================================
+     REAL TIME PREDICTION
+========================================================= -->
+
+<section
+id="project">
+
+
+<div class="container">
+
+
+<div class="section-heading">
+
+
+<span>
+
+LIVE AI SYSTEM
+
+</span>
+
+
+<h2>
+
+Real-Time Stock Prediction
+
+</h2>
+
+
+<p>
+
+Enter a stock symbol and get the latest market
+data with an AI-powered price prediction.
+
+</p>
+
+
+</div>
+
+
+<div class="realtime-box">
+
+
+<div class="realtime-header">
+
+
+<div>
+
+
+<h3
+class="realtime-title">
+
+AI Stock Predictor
+
+</h3>
+
+
+<p
+class="realtime-subtitle">
+
+Powered by Random Forest Machine Learning
+
+</p>
+
+
+</div>
+
+
+</div>
+
+
+<!-- INPUT -->
+
+<div class="rt-form">
+
+
+<input
+type="text"
+id="rtSymbol"
+class="rt-input"
+placeholder="Enter stock symbol e.g. AAPL, TSLA, MSFT"
+autocomplete="off"
+spellcheck="false"
+>
+
+
+<button
+class="rt-btn"
+id="predictBtn"
+type="button">
+
+Predict Now
+
+</button>
+
+
+</div>
+
+
+<!-- STATUS -->
+
+<div class="rt-status">
+
+
+<span
+class="rt-status-dot"
+id="rtStatusDot">
+</span>
+
+
+<span
+id="rtStatus">
+
+Ready to predict
+
+</span>
+
+
+</div>
+
+
+<!-- RESULT CARDS -->
+
+<div class="rt-grid">
+
+
+<div class="rt-card">
+
+
+<small>
+
+LIVE PRICE
+
+</small>
+
+
+<strong
+id="rtPrice">
+
+₹0.00
+
+</strong>
+
+
+</div>
+
+
+<div class="rt-card">
+
+
+<small>
+
+CHANGE
+
+</small>
+
+
+<strong
+id="rtChange"
+class="positive">
+
+₹0.00
+
+</strong>
+
+
+</div>
+
+
+<div class="rt-card">
+
+
+<small>
+
+DAY HIGH
+
+</small>
+
+
+<strong
+id="rtHigh">
+
+₹0.00
+
+</strong>
+
+
+</div>
+
+
+<div class="rt-card">
+
+
+<small>
+
+DAY LOW
+
+</small>
+
+
+<strong
+id="rtLow">
+
+₹0.00
+
+</strong>
+
+
+</div>
+
+
+</div>
+
+
+<!-- PREDICTION -->
+
+<div class="prediction-card">
+
+
+<div>
+
+
+<div class="prediction-label">
+
+ML NEXT PRICE PREDICTION
+
+</div>
+
+
+<div
+class="prediction-value"
+id="rtPrediction">
+
+₹0.00
+
+</div>
+
+
+</div>
+
+
+<div
+class="prediction-badge"
+id="rtSignal">
+
+HOLD
+
+</div>
+
+
+</div>
+
+
+<div class="rt-note">
+
+Model trained using historical AAPL stock data
+and Random Forest Regression.
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section>
+
+
+<div class="container">
+
+
+<div class="cta-box">
+
+
+<h2>
+
+Predict Smarter With AI
+
+</h2>
+
+
+<p>
+
+Explore the power of Machine Learning and
+Artificial Intelligence for stock market analysis.
+
+</p>
+
+
+<a
+href="./index.html#project"
+class="cta-btn">
+
+Try Stock Prediction
+
+</a>
+
+
+</div>
+
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+
+<div class="container">
+
+
+<p>
+
+© 2026 Stock Prediction AI |
+Developed with ❤️ using
+
+<strong>
+
+Python, Flask & Machine Learning
+
+</strong>
+
+</p>
+
+
+</div>
+
+
+</footer>
+
+
+<script>
+
+
+/* =========================================================
+   MOUSE GLOW
+========================================================= */
+
+const mouseGlow =
+document.getElementById(
+    "mouseGlow"
+);
+
+
+document.addEventListener(
+    "mousemove",
+    function(e){
+
+        mouseGlow.style.left =
+            e.clientX + "px";
+
+        mouseGlow.style.top =
+            e.clientY + "px";
+
+    }
+);
+
+
+/* =========================================================
+   NAVBAR SHADOW
+========================================================= */
+
+const navbar =
+document.getElementById(
+    "navbar"
+);
+
+
+window.addEventListener(
+    "scroll",
+    function(){
+
+        if(
+            window.scrollY > 30
+        ){
+
+            navbar.classList.add(
+                "scrolled"
+            );
+
+        }else{
+
+            navbar.classList.remove(
+                "scrolled"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   COUNTERS
+========================================================= */
+
+const counters =
+document.querySelectorAll(
+    ".counter"
+);
+
+
+const counterObserver =
+new IntersectionObserver(
+    function(entries){
+
+        entries.forEach(
+            function(entry){
+
+                if(
+                    entry.isIntersecting
+                ){
+
+                    const counter =
+                        entry.target;
+
+                    const target =
+                        Number(
+                            counter.dataset.target
+                        );
+
+                    let current = 0;
+
+                    const increment =
+                        target / 60;
+
+
+                    function updateCounter(){
+
+                        current +=
+                            increment;
+
+
+                        if(
+                            current < target
+                        ){
+
+                            counter.textContent =
+                                Math.floor(
+                                    current
+                                );
+
+                            requestAnimationFrame(
+                                updateCounter
+                            );
+
+                        }else{
+
+                            counter.textContent =
+                                target +
+                                (
+                                    target === 95
+                                    ? "%"
+                                    : "+"
+                                );
+
+                        }
+
+                    }
+
+
+                    updateCounter();
+
+
+                    counterObserver.unobserve(
+                        counter
+                    );
+
+                }
+
+            }
+        );
+
+    },
+    {
+        threshold:.5
+    }
+);
+
+
+counters.forEach(
+    function(counter){
+
+        counterObserver.observe(
+            counter
+        );
+
+    }
+);
+
+
+/* =========================================================
+   FLASK ML PREDICTION
+========================================================= */
+
+const predictBtn =
+document.getElementById(
+    "predictBtn"
+);
+
+
+const rtSymbol =
+document.getElementById(
+    "rtSymbol"
+);
+
+
+const rtPrice =
+document.getElementById(
+    "rtPrice"
+);
+
+
+const rtChange =
+document.getElementById(
+    "rtChange"
+);
+
+
+const rtHigh =
+document.getElementById(
+    "rtHigh"
+);
+
+
+const rtLow =
+document.getElementById(
+    "rtLow"
+);
+
+
+const rtPrediction =
+document.getElementById(
+    "rtPrediction"
+);
+
+
+const rtSignal =
+document.getElementById(
+    "rtSignal"
+);
+
+
+const rtStatus =
+document.getElementById(
+    "rtStatus"
+);
+
+
+const rtStatusDot =
+document.getElementById(
+    "rtStatusDot"
+);
+
+
+/* =========================================================
+   PREDICTION FUNCTION
+========================================================= */
+
+async function predictStock(){
+
+    const symbol =
+        rtSymbol.value
+        .trim()
+        .toUpperCase();
+
+
+    if(!symbol){
+
+        rtStatus.textContent =
+            "Please enter stock symbol";
+
+        rtStatusDot.classList.remove(
+            "active"
+        );
+
+        return;
+
+    }
+
+
+    rtStatus.textContent =
+        `Fetching market data for ${symbol}...`;
+
+
+    rtStatusDot.classList.remove(
+        "active"
+    );
+
+
+    predictBtn.disabled = true;
+
+    predictBtn.textContent =
+        "Predicting...";
+
+
+    try{
+
+
+        const response =
+            await fetch(
+                `http://127.0.0.1:5000/api/predict?symbol=${encodeURIComponent(symbol)}`,
+                {
+                    method:"GET",
+                    cache:"no-store"
+                }
+            );
+
+
+        let data;
+
+
+        try{
+
+            data =
+                await response.json();
+
+        }catch(jsonError){
+
+            throw new Error(
+                "Invalid response received from Flask server."
+            );
+
+        }
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                `Server error (${response.status})`
+            );
+
+        }
+
+
+        if(
+            data.status !== "success"
+        ){
+
+            throw new Error(
+                data.message ||
+                "Prediction failed."
+            );
+
+        }
+
+
+        /* ================= PRICE ================= */
+
+        rtPrice.textContent =
+            "₹" +
+            Number(
+                data.current_price
+            ).toLocaleString(
+                "en-IN",
+                {
+                    minimumFractionDigits:2,
+                    maximumFractionDigits:2
+                }
+            );
+
+
+        /* ================= CHANGE ================= */
+
+        const changeValue =
+            Number(
+                data.change
+            );
+
+
+        const changePercent =
+            Number(
+                data.change_percent
+            );
+
+
+        rtChange.textContent =
+            (changeValue >= 0 ? "+" : "") +
+            "₹" +
+            Math.abs(
+                changeValue
+            ).toFixed(2) +
+            " (" +
+            (changePercent >= 0 ? "+" : "") +
+            changePercent.toFixed(2) +
+            "%)";
+
+
+        if(
+            changeValue >= 0
+        ){
+
+            rtChange.classList.remove(
+                "negative"
+            );
+
+            rtChange.classList.add(
+                "positive"
+            );
+
+        }else{
+
+            rtChange.classList.remove(
+                "positive"
+            );
+
+            rtChange.classList.add(
+                "negative"
+            );
+
+        }
+
+
+        /* ================= HIGH ================= */
+
+        rtHigh.textContent =
+            "₹" +
+            Number(
+                data.high
+            ).toFixed(2);
+
+
+        /* ================= LOW ================= */
+
+        rtLow.textContent =
+            "₹" +
+            Number(
+                data.low
+            ).toFixed(2);
+
+
+        /* ================= PREDICTION ================= */
+
+        rtPrediction.textContent =
+            "₹" +
+            Number(
+                data.predicted_price
+            ).toFixed(2);
+
+
+        /* ================= SIGNAL ================= */
+
+        rtSignal.textContent =
+            data.signal;
+
+
+        if(
+            data.signal === "BUY"
+        ){
+
+            rtSignal.style.color =
+                "#00e6a8";
+
+            rtSignal.style.background =
+                "rgba(0,230,168,.10)";
+
+        }else if(
+            data.signal === "SELL"
+        ){
+
+            rtSignal.style.color =
+                "#ff6570";
+
+            rtSignal.style.background =
+                "rgba(255,101,112,.10)";
+
+        }else{
+
+            rtSignal.style.color =
+                "#00d9ff";
+
+            rtSignal.style.background =
+                "rgba(0,217,255,.10)";
+
+        }
+
+
+        /* ================= SUCCESS ================= */
+
+        rtStatus.textContent =
+            `Prediction completed for ${data.symbol || symbol}`;
+
+
+        rtStatusDot.classList.add(
+            "active"
+        );
+
+
+    }catch(error){
+
+
+        console.error(
+            "Prediction error:",
+            error
+        );
+
+
+        rtStatus.textContent =
+            error.message ||
+            "Backend connection failed. Start Flask server.";
+
+
+        rtStatusDot.classList.remove(
+            "active"
+        );
+
+
+        rtPrice.textContent =
+            "₹0.00";
+
+        rtHigh.textContent =
+            "₹0.00";
+
+        rtLow.textContent =
+            "₹0.00";
+
+        rtPrediction.textContent =
+            "₹0.00";
+
+        rtSignal.textContent =
+            "HOLD";
+
+        rtSignal.style.color =
+            "#00d9ff";
+
+        rtSignal.style.background =
+            "rgba(0,217,255,.10)";
+
+    }finally{
+
+
+        predictBtn.disabled =
+            false;
+
+
+        predictBtn.textContent =
+            "Predict Now";
+
+    }
+
+}
+
+
+/* =========================================================
+   BUTTON CLICK
+========================================================= */
+
+predictBtn.addEventListener(
+    "click",
+    predictStock
+);
+
+
+/* =========================================================
+   ENTER KEY
+========================================================= */
+
+rtSymbol.addEventListener(
+    "keydown",
+    function(e){
+
+        if(
+            e.key === "Enter"
+        ){
+
+            e.preventDefault();
+
+            predictStock();
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   AUTO REFRESH
+========================================================= */
+
+setInterval(
+    function(){
+
+        if(
+            rtSymbol.value.trim()
+        ){
+
+            predictStock();
+
+        }
+
+    },
+    60000
+);
+
+
+</script>
+
+
+
+
+<script>
+
+const navToggle = document.querySelector(".nav-toggle");
+const navLinks = document.querySelector(".nav-links");
+
+if(navToggle && navLinks){
+
+    navToggle.addEventListener("click", function(){
+
+        const isOpen = navLinks.classList.toggle("open");
+
+        navToggle.setAttribute(
+            "aria-expanded",
+            isOpen ? "true" : "false"
+        );
+
+        navToggle.innerHTML = isOpen ? "✕" : "☰";
+
+    });
+
+    navLinks.querySelectorAll("a").forEach(function(link){
+
+        link.addEventListener("click", function(){
+
+            navLinks.classList.remove("open");
+            navToggle.setAttribute("aria-expanded", "false");
+            navToggle.innerHTML = "☰";
+
+        });
+
+    });
+}
+
+</script>
+
+</body>
+</html>
